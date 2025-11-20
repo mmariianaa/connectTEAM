@@ -1,0 +1,99 @@
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+
+    <!-- Card de Login -->
+    <ion-card [class.hidden]="!isLogin">
+      <img alt="Studio Ghibli Logo"
+        src="https://1000marcas.net/wp-content/uploads/2024/02/Studio-Ghibli-Logo.jpg" />
+      <ion-card-header>
+        <ion-card-title style="text-align: center;">Login</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <ion-item>
+            <ion-input
+              formControlName="email"
+              label="Correo Electrónico"
+              type="email"
+              labelPlacement="floating"
+              fill="solid"
+              placeholder="Dame tu correo"
+              required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              formControlName="password"
+              label="Contraseña"
+              type="password"
+              labelPlacement="floating"
+              fill="solid"
+              placeholder="Dame tu contraseña"
+              required>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" type="submit">Login</ion-button>
+          <ion-button expand="block" fill="clear" (click)="toggleForm()">
+            ¿No tienes cuenta? Regístrate
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Card de Registro -->
+    <ion-card [class.hidden]="isLogin">
+      <img alt="Studio Ghibli Logo"
+        src="https://1000marcas.net/wp-content/uploads/2024/02/Studio-Ghibli-Logo.jpg" />
+      <ion-card-header>
+        <ion-card-title style="text-align: center;">Registro</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <ion-item>
+            <ion-input
+              formControlName="email"
+              label="Correo Electrónico"
+              type="email"
+              labelPlacement="floating"
+              fill="solid"
+              placeholder="Tu correo"
+              required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              formControlName="password"
+              label="Contraseña"
+              type="password"
+              labelPlacement="floating"
+              fill="solid"
+              placeholder="Tu contraseña"
+              required>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              formControlName="confirmPassword"
+              label="Confirmar Contraseña"
+              type="password"
+              labelPlacement="floating"
+              fill="solid"
+              placeholder="Repite tu contraseña"
+              required>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" type="submit">Registrarse</ion-button>
+          <ion-button expand="block" fill="clear" (click)="toggleForm()">
+            ¿Ya tienes cuenta? Inicia sesión
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

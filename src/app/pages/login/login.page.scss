@@ -1,0 +1,16 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  ion-item {
+    margin-bottom: 16px; /* Puedes ajustar este valor para el espacio que prefieras */
+  }
+  ion-button {
+    margin-top: 16px; /* Añade espacio superior a los botones */
+  }
+  ion-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra con un ligero desenfoque */
+    border-radius: 20px; /* Opcional, para hacer las esquinas redondeadas */
+}
