@@ -1,0 +1,60 @@
+.colaborador-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #e3f2fd, #fce4ec); // azul suave a rosa pastel
+}
+
+ion-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+ion-card:hover {
+  transform: translateY(-4px);
+}
+
+ion-card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #3f51b5;
+  text-align: center;
+}
+
+ion-card-subtitle {
+  font-size: 1rem;
+  color: #757575;
+  text-align: center;
+}
+
+ion-card-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-bottom: 1rem;
+}
+
+ion-button {
+  margin-top: 12px;
+  --background: linear-gradient(to right, #f48fb1, #64b5f6); // rosa a azul
+  --color: white;
+  --border-radius: 12px;
+  font-weight: bold;
+}
+
+ion-button[fill="clear"] {
+  --color: #3f51b5;
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+}

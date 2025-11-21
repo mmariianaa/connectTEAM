@@ -141,7 +141,7 @@ export class LoginPage implements OnInit {
         text: 'Ok',
         role: 'confirm',
         handler: () => {
-          this.router.navigate(['/tabs/tab1']);
+          this.router.navigate(['/perfiladmin']);
         }
       }]
     });

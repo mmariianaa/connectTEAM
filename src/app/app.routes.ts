@@ -13,7 +13,13 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
+  },  {
+    path: 'perfiladmin',
+    loadComponent: () => import('./pages/perfiladmin/perfiladmin.page').then( m => m.PerfiladminPage)
   },
+
+ 
+
 
 
 ];
