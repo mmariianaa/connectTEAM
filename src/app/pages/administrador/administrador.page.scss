@@ -1,0 +1,25 @@
+.admin-container {
+  --background: linear-gradient(135deg, #e3f2fd, #bbdefb); // azul suave a azul claro
+  padding: 20px;
+}
+
+ion-toolbar {
+  --background: #3f51b5; // azul profundo
+  --color: #ffffff;
+}
+
+ion-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+ion-button {
+  margin-top: 12px;
+  --background: linear-gradient(to right, #64b5f6, #3f51b5); // azul medio a profundo
+  --color: #fff;
+  --border-radius: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

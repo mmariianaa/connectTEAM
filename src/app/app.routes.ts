@@ -17,6 +17,10 @@ export const routes: Routes = [
     path: 'perfiladmin',
     loadComponent: () => import('./pages/perfiladmin/perfiladmin.page').then( m => m.PerfiladminPage)
   },
+  {
+    path: 'administrador',
+    loadComponent: () => import('./pages/administrador/administrador.page').then( m => m.AdministradorPage)
+  },
 
  
 
