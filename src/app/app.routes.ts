@@ -27,7 +27,11 @@ export const routes: Routes = [
   path:'perfilcolaborador',
   loadComponent: () => import('./pages/perfilcolaborador/perfilcolaborador.page').then( m => m.PerfilcolaboradorPage)
 
- }
+ },  {
+    path: 'tableros',
+    loadComponent: () => import('./pages/tableros/tableros.page').then( m => m.TablerosPage)
+  }
+
 
 
 
