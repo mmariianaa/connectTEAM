@@ -23,6 +23,12 @@ import {
 } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular';
 
+// 🔹 Interfaz para tipar los tableros
+interface Tablero {
+  titulo: string;
+  codigo: number;
+}
+
 @Component({
   selector: 'app-perfiladmin',
   templateUrl: './perfiladmin.page.html',
@@ -36,6 +42,7 @@ import { AlertController } from '@ionic/angular';
     IonIcon,
     IonButton,
     IonCardContent,
+    IonCardSubtitle,
     IonCardTitle,
     IonCardHeader,
     IonCard,
@@ -51,11 +58,15 @@ import { AlertController } from '@ionic/angular';
   ]
 })
 export class PerfiladminPage implements OnInit {
+  // 🔹 Array para guardar los tableros creados
+  tableros: Tablero[] = [];
+
   constructor(private alertCtrl: AlertController) {}
 
   ngOnInit() {}
 
-  async abrirCrearTablero() {
+  // Método para abrir un alert y crear tablero con código
+  async crearTablero() {
     const alert = await this.alertCtrl.create({
       header: 'Nuevo Tablero',
       inputs: [
@@ -71,9 +82,20 @@ export class PerfiladminPage implements OnInit {
           role: 'cancel'
         },
         {
-          text: 'QR',
+          text: 'Crear',
           handler: (data) => {
-            this.mostrarQR(data.titulo);
+            if (data.titulo && data.titulo.trim() !== '') {
+              const codigo4Digitos = Math.floor(1000 + Math.random() * 9000);
+
+              // Guardar tablero en el array
+              this.tableros.push({
+                titulo: data.titulo,
+                codigo: codigo4Digitos
+              });
+
+              // Mostrar alerta con el código
+              this.mostrarCodigo(data.titulo, codigo4Digitos);
+            }
           }
         }
       ]
@@ -82,14 +104,14 @@ export class PerfiladminPage implements OnInit {
     await alert.present();
   }
 
-  async mostrarQR(titulo: string) {
+  // Método para mostrar el código generado
+  async mostrarCodigo(titulo: string, codigo: number) {
     const alert = await this.alertCtrl.create({
-      header: `QR del Tablero`,
+      header: `Tablero creado`,
       message: `
-        <div style="display:flex;justify-content:center;align-items:center;">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-            titulo
-          )}" />
+        <div id="codigo-alert">
+          <p><strong>${titulo}</strong></p>
+          <p class="codigo-texto">Código: ${codigo}</p>
         </div>
       `,
       buttons: ['Cerrar']
