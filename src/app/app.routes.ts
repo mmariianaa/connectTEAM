@@ -18,8 +18,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/perfiladmin/perfiladmin.page').then( m => m.PerfiladminPage)
   },
   {
-    path: 'perfilcolaborador',
-    loadComponent: () => import('./pages/perfilcolaborador/perfilcolaborador.page').then( m => m.PerfilcolaboradorPage)
+    path: 'administrador',
+    loadComponent: () => import('./pages/administrador/administrador.page').then( m => m.AdministradorPage)
   },
 
  
