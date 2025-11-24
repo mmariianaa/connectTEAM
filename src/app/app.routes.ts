@@ -17,6 +17,10 @@ export const routes: Routes = [
     path: 'perfiladmin',
     loadComponent: () => import('./pages/perfiladmin/perfiladmin.page').then( m => m.PerfiladminPage)
   },
+  {
+    path: 'perfilcolaborador',
+    loadComponent: () => import('./pages/perfilcolaborador/perfilcolaborador.page').then( m => m.PerfilcolaboradorPage)
+  },
 
  
 
