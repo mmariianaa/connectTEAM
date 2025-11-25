@@ -35,9 +35,16 @@ export const routes: Routes = [
   {
     path: 'integrantes',
     loadComponent: () => import('./pages/integrantes/integrantes.page').then( m => m.IntegrantesPage)
-  },  {
-    path: 'tablerosytareas',
-    loadComponent: () => import('./pages/tablerosytareas/tablerosytareas.page').then( m => m.TablerosytareasPage)
   },
+  {
+    path: 'mistableroscolaborador',
+    loadComponent: () => import('./pages/mistableroscolaborador/mistableroscolaborador.page').then( m => m.MistableroscolaboradorPage)
+  },
+
+
+
+
+
+
 
 ];

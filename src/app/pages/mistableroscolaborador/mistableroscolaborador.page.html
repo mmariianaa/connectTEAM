@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Connect-Team</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-avatar>
+        <ion-icon name="person-circle-outline" style="font-size: 32px;"></ion-icon>
+      </ion-avatar>
+      <ion-label class="usuario">{{ colaborador }}</ion-label>
+
+      <ion-button fill="clear">
+        <ion-icon name="add-circle-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- MENÚ IZQUIERDO -->
+  <div class="layout">
+
+    <div class="sidebar">
+      <ion-list>
+        <ion-item lines="none" (click)="misTableros()" button>Mis Tableros</ion-item>
+        <ion-item lines="none" (click)="volverPerfilColaborador()" button>Mi perfil</ion-item>
+      </ion-list>
+    </div>
+
+    <!-- TARJETAS DE TABLEROS -->
+    <div class="tableros">
+      
+      <!-- TARJETAS EXISTENTES -->
+      <div class="card" *ngFor="let t of tableros">
+        
+        <div class="info">
+          <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+          <h3>{{ t.nombre }}</h3>
+        </div>
+
+        <ion-button size="small" (click)="verTablero(t.id)">
+          Ver
+        </ion-button>
+      </div>
+
+      <!-- TARJETA PARA AGREGAR TABLERO CON CÓDIGO -->
+      <div class="card add-card">
+        <h3>Agregar nuevo tablero</h3>
+
+        <ion-input 
+          placeholder="Ingresa el código"
+          [(ngModel)]="codigoRandom">
+        </ion-input>
+
+        <ion-button expand="block" (click)="agregarTablero()">
+          Agregar
+        </ion-button>
+
+      
+      </div>
+
+    </div>
+
+  </div>
+</ion-content>
