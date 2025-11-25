@@ -47,7 +47,7 @@ export class AdministradorPage {
     this.router.navigate(['/perfiladmin']);
   }
 
-  misTableros() {
+  misTablerosasignartareas() {
     console.log('Mis Tableros');
   }
 
@@ -55,19 +55,4 @@ export class AdministradorPage {
     console.log('Tareas Pendientes');
   }
 
-  async generarQR() {
-  // Generar un valor aleatorio (ejemplo: número entre 1000 y 9999)
-  const randomValue = Math.floor(Math.random() * 9000) + 1000;
-
-  const alert = await this.alertCtrl.create({
-    header: 'Código QR',
-    message: `
-      <div style="display:flex;justify-content:center;align-items:center;">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=QR-${randomValue}" />
-      </div>
-    `,
-    buttons: ['Cerrar']
-  });
-  await alert.present();
-}
 }

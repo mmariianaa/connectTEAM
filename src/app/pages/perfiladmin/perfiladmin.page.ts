@@ -22,8 +22,8 @@ import {
   IonToolbar
 } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
-// 🔹 Interfaz para tipar los tableros
 interface Tablero {
   titulo: string;
   codigo: number;
@@ -59,10 +59,13 @@ interface Tablero {
 })
 export class PerfiladminPage implements OnInit {
   @ViewChild('tablerosContainer', { static: true }) tablerosContainer!: ElementRef;
-
   tableros: Tablero[] = [];
 
-  constructor(private alertCtrl: AlertController, private renderer: Renderer2) {}
+  constructor(
+    private alertCtrl: AlertController,
+    private renderer: Renderer2,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -97,15 +100,23 @@ export class PerfiladminPage implements OnInit {
               const title = this.renderer.createElement('ion-card-title');
               const subtitle = this.renderer.createElement('ion-card-subtitle');
               const content = this.renderer.createElement('ion-card-content');
+              const button = this.renderer.createElement('ion-button');
 
               title.textContent = nuevoTablero.titulo;
               subtitle.textContent = `Código: ${nuevoTablero.codigo}`;
               content.textContent = 'Este tablero fue creado por el administrador.';
+              button.textContent = 'Asignar tarea';
+
+              // Evento de click → navegar a la pantalla "tablero"
+              button.addEventListener('click', () => {
+                this.router.navigate(['/mistablreosasignaciondetareas']);
+              });
 
               this.renderer.appendChild(header, title);
               this.renderer.appendChild(header, subtitle);
               this.renderer.appendChild(card, header);
               this.renderer.appendChild(card, content);
+              this.renderer.appendChild(card, button);
 
               this.renderer.appendChild(this.tablerosContainer.nativeElement, card);
             }
