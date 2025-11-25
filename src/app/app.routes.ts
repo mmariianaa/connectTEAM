@@ -35,6 +35,16 @@ export const routes: Routes = [
     path: 'integrantes',
     loadComponent: () => import('./pages/integrantes/integrantes.page').then( m => m.IntegrantesPage)
   },
+  {
+    path: 'mistableroscolaborador',
+    loadComponent: () => import('./pages/mistableroscolaborador/mistableroscolaborador.page').then( m => m.MistableroscolaboradorPage)
+  },
+
+
+
+
+
+
 
 
 
