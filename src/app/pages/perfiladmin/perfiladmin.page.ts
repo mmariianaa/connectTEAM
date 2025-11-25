@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -58,14 +58,14 @@ interface Tablero {
   ]
 })
 export class PerfiladminPage implements OnInit {
-  // 🔹 Array para guardar los tableros creados
+  @ViewChild('tablerosContainer', { static: true }) tablerosContainer!: ElementRef;
+
   tableros: Tablero[] = [];
 
-  constructor(private alertCtrl: AlertController) {}
+  constructor(private alertCtrl: AlertController, private renderer: Renderer2) {}
 
   ngOnInit() {}
 
-  // Método para abrir un alert y crear tablero con código
   async crearTablero() {
     const alert = await this.alertCtrl.create({
       header: 'Nuevo Tablero',
@@ -77,44 +77,41 @@ export class PerfiladminPage implements OnInit {
         }
       ],
       buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
+        { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Crear',
           handler: (data) => {
             if (data.titulo && data.titulo.trim() !== '') {
               const codigo4Digitos = Math.floor(1000 + Math.random() * 9000);
 
-              // Guardar tablero en el array
-              this.tableros.push({
+              const nuevoTablero: Tablero = {
                 titulo: data.titulo,
                 codigo: codigo4Digitos
-              });
+              };
 
-              // Mostrar alerta con el código
-              this.mostrarCodigo(data.titulo, codigo4Digitos);
+              this.tableros.push(nuevoTablero);
+
+              // Crear dinámicamente un card
+              const card = this.renderer.createElement('ion-card');
+              const header = this.renderer.createElement('ion-card-header');
+              const title = this.renderer.createElement('ion-card-title');
+              const subtitle = this.renderer.createElement('ion-card-subtitle');
+              const content = this.renderer.createElement('ion-card-content');
+
+              title.textContent = nuevoTablero.titulo;
+              subtitle.textContent = `Código: ${nuevoTablero.codigo}`;
+              content.textContent = 'Este tablero fue creado por el administrador.';
+
+              this.renderer.appendChild(header, title);
+              this.renderer.appendChild(header, subtitle);
+              this.renderer.appendChild(card, header);
+              this.renderer.appendChild(card, content);
+
+              this.renderer.appendChild(this.tablerosContainer.nativeElement, card);
             }
           }
         }
       ]
-    });
-
-    await alert.present();
-  }
-
-  // Método para mostrar el código generado
-  async mostrarCodigo(titulo: string, codigo: number) {
-    const alert = await this.alertCtrl.create({
-      header: `Tablero creado`,
-      message: `
-        <div id="codigo-alert">
-          <p><strong>${titulo}</strong></p>
-          <p class="codigo-texto">Código: ${codigo}</p>
-        </div>
-      `,
-      buttons: ['Cerrar']
     });
 
     await alert.present();
