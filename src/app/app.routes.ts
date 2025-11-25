@@ -30,6 +30,10 @@ export const routes: Routes = [
  },  {
     path: 'tableros',
     loadComponent: () => import('./pages/tableros/tableros.page').then( m => m.TablerosPage)
+  },
+  {
+    path: 'tareaspendientes',
+    loadComponent: () => import('./pages/tareaspendientes/tareaspendientes.page').then( m => m.TareaspendientesPage)
   }
 
 
