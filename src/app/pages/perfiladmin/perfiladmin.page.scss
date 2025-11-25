@@ -72,3 +72,12 @@ img {
     color: #3880ff; // azul Ionic
   }
 }
+ion-col:first-child {
+  background: #f4f4f4; // gris claro para el panel lateral
+  padding: 15px;
+}
+
+ion-col:last-child {
+  background: #ffffff; // blanco para los cards
+  padding: 15px;
+}

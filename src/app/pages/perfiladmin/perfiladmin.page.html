@@ -5,13 +5,21 @@
 </ion-header>
 
 <ion-content>
-  <!-- Botón para crear nuevo tablero -->
-  <ion-list>
-    <ion-item button color="primary" (click)="crearTablero()">
-      <ion-label>Nuevo Tablero</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <!-- Columna izquierda: Botón para crear tablero -->
+      <ion-col size="12" size-md="4">
+        <ion-list>
+          <ion-item button color="primary" (click)="crearTablero()">
+            <ion-label>Nuevo Tablero</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
 
-  <!-- Contenedor donde se insertarán los tableros -->
-  <div #tablerosContainer></div>
+      <!-- Columna derecha: Cards dinámicos -->
+      <ion-col size="12" size-md="8">
+        <div #tablerosContainer></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
