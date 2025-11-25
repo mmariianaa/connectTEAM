@@ -31,7 +31,8 @@ export const routes: Routes = [
   {
     path: 'mistablreosasignaciondetareas',
     loadComponent: () => import('./pages/mistablreosasignaciondetareas/mistablreosasignaciondetareas.page').then( m => m.MistablreosasignaciondetareasPage)
-  },  {
+  },
+  {
     path: 'integrantes',
     loadComponent: () => import('./pages/integrantes/integrantes.page').then( m => m.IntegrantesPage)
   },
@@ -39,11 +40,6 @@ export const routes: Routes = [
     path: 'mistableroscolaborador',
     loadComponent: () => import('./pages/mistableroscolaborador/mistableroscolaborador.page').then( m => m.MistableroscolaboradorPage)
   },
-
-
-
-
-
 
 
 
