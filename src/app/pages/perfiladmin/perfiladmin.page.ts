@@ -109,7 +109,7 @@ export class PerfiladminPage implements OnInit {
 
               // Evento de click → navegar a la pantalla "tablero"
               button.addEventListener('click', () => {
-                this.router.navigate(['/mistablreosasignaciondetareas']);
+                this.router.navigate(['/integrantes']);
               });
 
               this.renderer.appendChild(header, title);

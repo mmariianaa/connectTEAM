@@ -31,14 +31,13 @@ export const routes: Routes = [
   {
     path: 'mistablreosasignaciondetareas',
     loadComponent: () => import('./pages/mistablreosasignaciondetareas/mistablreosasignaciondetareas.page').then( m => m.MistablreosasignaciondetareasPage)
-  },  {
+  },
+  {
     path: 'integrantes',
     loadComponent: () => import('./pages/integrantes/integrantes.page').then( m => m.IntegrantesPage)
+  },  {
+    path: 'tablerosytareas',
+    loadComponent: () => import('./pages/tablerosytareas/tablerosytareas.page').then( m => m.TablerosytareasPage)
   },
-
-
-
-
-
 
 ];
