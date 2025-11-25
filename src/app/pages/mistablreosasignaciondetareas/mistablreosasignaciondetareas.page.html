@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Asignación de tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <!-- Columna izquierda: Botón para agregar campo -->
+      <ion-col size="12" size-md="4">
+        <ion-list>
+          <ion-item button color="primary" (click)="agregarCampo()">
+            <ion-label>Nuevo Campo</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <!-- Columna derecha: Campos dinámicos -->
+      <ion-col size="12" size-md="8">
+        <div #contenedorCampos></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

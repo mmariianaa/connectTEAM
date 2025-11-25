@@ -58,3 +58,26 @@ img {
   object-fit: cover;
   border-radius: 20px 20px 0 0;
 }
+#codigo-alert {
+  text-align: center;
+  padding: 10px;
+
+  p {
+    margin: 5px 0;
+  }
+
+  .codigo-texto {
+    font-size: 22px;
+    font-weight: bold;
+    color: #3880ff; // azul Ionic
+  }
+}
+ion-col:first-child {
+  background: #f4f4f4; // gris claro para el panel lateral
+  padding: 15px;
+}
+
+ion-col:last-child {
+  background: #ffffff; // blanco para los cards
+  padding: 15px;
+}

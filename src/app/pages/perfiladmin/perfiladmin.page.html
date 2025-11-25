@@ -1,32 +1,26 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>CONNECT-TEAM</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <span style="margin-left: 8px;">Mariana Martinez</span>
-      </ion-button>
-      <ion-button>
-        <ion-icon name="add-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title>Perfil Administrador</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
-      <!-- Menú lateral -->
-      <ion-col size="12" size-md="3">
+      <!-- Columna izquierda: Botón para crear tablero -->
+      <ion-col size="12" size-md="4">
         <ion-list>
-          <ion-item button color="primary" (click)="abrirCrearTablero()">
-            <ion-label>Tableros</ion-label>
-          </ion-item>
-          <ion-item button>
-            <ion-label>Comunicación</ion-label>
+          <ion-item button color="primary" (click)="crearTablero()">
+            <ion-label>Nuevo Tablero</ion-label>
           </ion-item>
         </ion-list>
+      </ion-col>
+
+      <!-- Columna derecha: Cards dinámicos -->
+      <ion-col size="12" size-md="8">
+        <div #tablerosContainer></div>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+

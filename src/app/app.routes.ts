@@ -27,14 +27,16 @@ export const routes: Routes = [
   path:'perfilcolaborador',
   loadComponent: () => import('./pages/perfilcolaborador/perfilcolaborador.page').then( m => m.PerfilcolaboradorPage)
 
- },  {
-    path: 'tableros',
-    loadComponent: () => import('./pages/tableros/tableros.page').then( m => m.TablerosPage)
-  },
+ },
   {
-    path: 'tareaspendientes',
-    loadComponent: () => import('./pages/tareaspendientes/tareaspendientes.page').then( m => m.TareaspendientesPage)
-  }
+    path: 'mistablreosasignaciondetareas',
+    loadComponent: () => import('./pages/mistablreosasignaciondetareas/mistablreosasignaciondetareas.page').then( m => m.MistablreosasignaciondetareasPage)
+  },  {
+    path: 'integrantes',
+    loadComponent: () => import('./pages/integrantes/integrantes.page').then( m => m.IntegrantesPage)
+  },
+
+
 
 
 

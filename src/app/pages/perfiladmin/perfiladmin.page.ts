@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -22,6 +22,12 @@ import {
   IonToolbar
 } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
+interface Tablero {
+  titulo: string;
+  codigo: number;
+}
 
 @Component({
   selector: 'app-perfiladmin',
@@ -36,6 +42,7 @@ import { AlertController } from '@ionic/angular';
     IonIcon,
     IonButton,
     IonCardContent,
+    IonCardSubtitle,
     IonCardTitle,
     IonCardHeader,
     IonCard,
@@ -51,11 +58,18 @@ import { AlertController } from '@ionic/angular';
   ]
 })
 export class PerfiladminPage implements OnInit {
-  constructor(private alertCtrl: AlertController) {}
+  @ViewChild('tablerosContainer', { static: true }) tablerosContainer!: ElementRef;
+  tableros: Tablero[] = [];
+
+  constructor(
+    private alertCtrl: AlertController,
+    private renderer: Renderer2,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
-  async abrirCrearTablero() {
+  async crearTablero() {
     const alert = await this.alertCtrl.create({
       header: 'Nuevo Tablero',
       inputs: [
@@ -66,33 +80,49 @@ export class PerfiladminPage implements OnInit {
         }
       ],
       buttons: [
+        { text: 'Cancelar', role: 'cancel' },
         {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'QR',
+          text: 'Crear',
           handler: (data) => {
-            this.mostrarQR(data.titulo);
+            if (data.titulo && data.titulo.trim() !== '') {
+              const codigo4Digitos = Math.floor(1000 + Math.random() * 9000);
+
+              const nuevoTablero: Tablero = {
+                titulo: data.titulo,
+                codigo: codigo4Digitos
+              };
+
+              this.tableros.push(nuevoTablero);
+
+              // Crear dinámicamente un card
+              const card = this.renderer.createElement('ion-card');
+              const header = this.renderer.createElement('ion-card-header');
+              const title = this.renderer.createElement('ion-card-title');
+              const subtitle = this.renderer.createElement('ion-card-subtitle');
+              const content = this.renderer.createElement('ion-card-content');
+              const button = this.renderer.createElement('ion-button');
+
+              title.textContent = nuevoTablero.titulo;
+              subtitle.textContent = `Código: ${nuevoTablero.codigo}`;
+              content.textContent = 'Este tablero fue creado por el administrador.';
+              button.textContent = 'Asignar tarea';
+
+              // Evento de click → navegar a la pantalla "tablero"
+              button.addEventListener('click', () => {
+                this.router.navigate(['/mistablreosasignaciondetareas']);
+              });
+
+              this.renderer.appendChild(header, title);
+              this.renderer.appendChild(header, subtitle);
+              this.renderer.appendChild(card, header);
+              this.renderer.appendChild(card, content);
+              this.renderer.appendChild(card, button);
+
+              this.renderer.appendChild(this.tablerosContainer.nativeElement, card);
+            }
           }
         }
       ]
-    });
-
-    await alert.present();
-  }
-
-  async mostrarQR(titulo: string) {
-    const alert = await this.alertCtrl.create({
-      header: `QR del Tablero`,
-      message: `
-        <div style="display:flex;justify-content:center;align-items:center;">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-            titulo
-          )}" />
-        </div>
-      `,
-      buttons: ['Cerrar']
     });
 
     await alert.present();
