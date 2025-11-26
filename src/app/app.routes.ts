@@ -37,8 +37,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/integrantes/integrantes.page').then( m => m.IntegrantesPage)
   },
   {
-    path: 'mistableroscolaborador',
-    loadComponent: () => import('./pages/mistableroscolaborador/mistableroscolaborador.page').then( m => m.MistableroscolaboradorPage)
+    path: 'tablerosytareas',
+    loadComponent: () => import('./pages/tablerosytareas/tablerosytareas.page').then( m => m.TablerosytareasPage)
   },
   {
     path: 'tablerosytareas',
@@ -48,11 +48,5 @@ export const routes: Routes = [
     path: 'tareaspendientes',
     loadComponent: () => import('./pages/tareaspendientes/tareaspendientes.page').then( m => m.TareaspendientesPage)
   }
-
-
-
-
-
-
 
 ];

@@ -1,13 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>integrantes</ion-title>
+    <ion-title>Integrantes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">integrantes</ion-title>
+      <ion-title size="large">Integrantes</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Card con usuario random -->
+  <ion-card>
+    <ion-card-header>
+      <!-- 👇 aquí mostramos el nombre dinámico -->
+      <ion-card-title>{{ usuarioRandom }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- 👇 ahora el botón llama a la función del TS -->
+      <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
+        Ir a Asignación de Tareas
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
