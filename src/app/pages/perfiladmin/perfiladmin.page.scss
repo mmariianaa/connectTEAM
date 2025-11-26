@@ -1,83 +1,225 @@
-.colaborador-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// Variables de diseño
+$primary-color: var(--ion-color-primary);
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$border-radius: 12px;
+$transition: all 0.3s ease;
+
+// Estilos globales
+.custom-content {
+  --background: #f8f9fa;
+}
+
+.container {
+  padding: 16px;
+  
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+}
+
+// Header mejorado
+.custom-toolbar {
+  --background: linear-gradient(135deg, var(--ion-color-primary) 0%, #3880ff 100%);
+  
+  ion-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+// Panel lateral
+.sidebar-section {
+  background: white;
+  border-radius: $border-radius;
   padding: 20px;
-  background: linear-gradient(135deg, #e3f2fd, #fce4ec); // azul suave a rosa pastel
+  box-shadow: $card-shadow;
+  margin-bottom: 16px;
 }
 
-ion-card {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  transition: transform 0.3s ease;
+// Lista personalizada
+.custom-list {
+  background: transparent;
+  border-radius: $border-radius;
+  margin-bottom: 20px;
 }
 
-ion-card:hover {
-  transform: translateY(-4px);
-}
-
-ion-card-title {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #3f51b5;
-  text-align: center;
-}
-
-ion-card-subtitle {
-  font-size: 1rem;
-  color: #757575;
-  text-align: center;
-}
-
-ion-card-content {
-  font-size: 1rem;
-  line-height: 1.6;
-  padding-bottom: 1rem;
-}
-
-ion-button {
-  margin-top: 12px;
-  --background: linear-gradient(to right, #f48fb1, #64b5f6); // rosa a azul
+// Item para crear tablero
+.create-board-item {
+  --border-radius: #{$border-radius};
+  --background: linear-gradient(135deg, $primary-color 0%, #3880ff 100%);
   --color: white;
-  --border-radius: 12px;
-  font-weight: bold;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  transition: $transition;
+  
+  ion-icon {
+    font-size: 1.2rem;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(var(--ion-color-primary-rgb), 0.3);
+  }
 }
 
-ion-button[fill="clear"] {
-  --color: #3f51b5;
-  font-size: 0.9rem;
-  text-decoration: underline;
+// Tarjeta de información
+.info-card {
+  background: #f8f9fa;
+  border-radius: $border-radius;
+  padding: 16px;
+  
+  h3 {
+    margin: 0 0 12px 0;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1rem;
+  }
 }
 
-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 20px 20px 0 0;
+// Acciones rápidas
+.quick-actions {
+  background: transparent;
+  
+  .action-item {
+    --border-radius: #{$border-radius};
+    --padding-start: 12px;
+    --padding-end: 12px;
+    margin-bottom: 8px;
+    --background: white;
+    transition: $transition;
+    
+    ion-icon {
+      color: $primary-color;
+      font-size: 1.1rem;
+    }
+    
+    ion-label {
+      font-weight: 500;
+      color: #495057;
+    }
+    
+    &:hover {
+      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+      transform: translateX(4px);
+    }
+  }
 }
-#codigo-alert {
+
+// Sección de tableros
+.boards-section {
+  background: white;
+  border-radius: $border-radius;
+  padding: 24px;
+  box-shadow: $card-shadow;
+  min-height: 400px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e9ecef;
+  
+  h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+  
+  .counter {
+    background: $primary-color;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+}
+
+// Contenedor de tableros
+.boards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Estilos para los tableros dinámicos (cuando los agregues)
+.dynamic-board {
+  background: white;
+  border-radius: $border-radius;
+  padding: 20px;
+  border-left: 4px solid $primary-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: $transition;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .board-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+  }
+  
+  .board-description {
+    color: $secondary-color;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+// Estado vacío para cuando no hay tableros
+.empty-state {
   text-align: center;
-  padding: 10px;
-
+  padding: 60px 20px;
+  color: $secondary-color;
+  
+  ion-icon {
+    font-size: 3rem;
+    color: #dee2e6;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    color: #6c757d;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  
   p {
-    margin: 5px 0;
-  }
-
-  .codigo-texto {
-    font-size: 22px;
-    font-weight: bold;
-    color: #3880ff; // azul Ionic
+    margin-bottom: 20px;
+    font-size: 0.9rem;
   }
 }
-ion-col:first-child {
-  background: #f4f4f4; // gris claro para el panel lateral
-  padding: 15px;
+
+// Animaciones
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-ion-col:last-child {
-  background: #ffffff; // blanco para los cards
-  padding: 15px;
+.boards-section,
+.sidebar-section {
+  animation: fadeInUp 0.5s ease-out;
 }
