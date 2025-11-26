@@ -1,26 +1,53 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar class="custom-toolbar">
     <ion-title>Perfil Administrador</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-grid>
-    <ion-row>
-      <!-- Columna izquierda: Botón para crear tablero -->
-      <ion-col size="12" size-md="4">
-        <ion-list>
-          <ion-item button color="primary" (click)="crearTablero()">
-            <ion-label>Nuevo Tablero</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-col>
+<ion-content class="custom-content">
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <!-- Columna izquierda: Botón para crear tablero -->
+        <ion-col size="12" size-md="4">
+          <div class="sidebar-section">
+            <ion-list class="custom-list">
+              <ion-item 
+                class="create-board-item" 
+                button 
+                color="primary" 
+                (click)="crearTablero()">
+                <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+                <ion-label>Nuevo Tablero</ion-label>
+              </ion-item>
+            </ion-list>
+            
+            <!-- Sección de información adicional -->
+            <div class="info-card">
+              <h3>Acciones Rápidas</h3>
+              <ion-list lines="none" class="quick-actions">
+                <ion-item button class="action-item">
+                  <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
+                  <ion-label>volver al inicio</ion-label>
+                </ion-item>
+              </ion-list>
+            </div>
+          </div>
+        </ion-col>
 
-      <!-- Columna derecha: Cards dinámicos -->
-      <ion-col size="12" size-md="8">
-        <div #tablerosContainer></div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <!-- Columna derecha: Cards dinámicos -->
+        <ion-col size="12" size-md="8">
+          <div class="boards-section">
+            <div class="section-header">
+              <h2>Mis Tableros</h2>
+              <span class="counter">{{cantidadTableros}} tableros</span>
+            </div>
+            <div #tablerosContainer class="boards-container">
+              <!-- Los tableros dinámicos aparecerán aquí -->
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
-
