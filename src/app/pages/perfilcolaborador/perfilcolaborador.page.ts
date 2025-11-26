@@ -46,7 +46,7 @@ export class PerfilcolaboradorPage implements OnInit {
   }
 
   irTareas() {
-    this.router.navigate(['/mistareasasignaciondetareas']);
+    this.router.navigate(['/tareaspendientes']);
   }
 
   volverLogin() {
