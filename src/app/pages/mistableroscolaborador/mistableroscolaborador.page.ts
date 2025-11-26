@@ -64,11 +64,11 @@ export class MistableroscolaboradorPage implements OnInit {
   }
 
   misTableros(){
-    this.route.navigate(['/mistableroscolaborador'])
+    this.route.navigate(['/mistableroscolaborador']);
   }
 
   volverPerfilColaborador(){
-    this.route.navigate(['/perfilcolaborador'])
+    this.route.navigate(['/perfilcolaborador']);
   }
 
   agregarTablero(){

@@ -31,7 +31,8 @@
     <div class="tableros">
       
       <!-- TARJETAS EXISTENTES -->
-      <div class="card" *ngFor="let t of tableros">
+      @for (t of tableros; track t.id) {
+        <div class="card">
         
         <div class="info">
           <ion-icon name="person-circle-outline" class="icon"></ion-icon>
@@ -42,7 +43,8 @@
           Ver
         </ion-button>
       </div>
-
+      }
+      
       <!-- TARJETA PARA AGREGAR TABLERO CON CÓDIGO -->
       <div class="card add-card">
         <h3>Agregar nuevo tablero</h3>
