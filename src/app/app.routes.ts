@@ -41,12 +41,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/tablerosytareas/tablerosytareas.page').then( m => m.TablerosytareasPage)
   },
   {
-    path: 'tablerosytareas',
-    loadComponent: () => import('./pages/tablerosytareas/tablerosytareas.page').then( m => m.TablerosytareasPage)
-  },
-  {
-    path: 'tareaspendientes',
-    loadComponent: () => import('./pages/tareaspendientes/tareaspendientes.page').then( m => m.TareaspendientesPage)
+    path: 'mistableroscolaborador',
+    loadComponent: () => import('./pages/mistableroscolaborador/mistableroscolaborador.page').then( m => m.MistableroscolaboradorPage)
   }
 
 ];
