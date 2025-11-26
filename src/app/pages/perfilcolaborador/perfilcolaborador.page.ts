@@ -42,7 +42,7 @@ export class PerfilcolaboradorPage implements OnInit {
   ngOnInit() {}
 
   irTableros() {
-    this.router.navigate(['/tableros']);
+    this.router.navigate(['/mistableroscolaborador']);
   }
 
   irTareas() {
