@@ -12,14 +12,18 @@ import {
   IonRow,
   IonButton,
   IonIcon,
-  IonLabel, IonList } from '@ionic/angular/standalone';
+  IonLabel,
+  IonList
+} from '@ionic/angular/standalone';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-mistablreosasignaciondetareas',
   templateUrl: './mistablreosasignaciondetareas.page.html',
   styleUrls: ['./mistablreosasignaciondetareas.page.scss'],
   standalone: true,
-  imports: [IonList, 
+  imports: [
+    IonList,
     IonLabel,
     IonIcon,
     IonButton,
@@ -32,14 +36,15 @@ import {
     IonTitle,
     IonToolbar,
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule  
   ]
 })
 export class MistablreosasignaciondetareasPage implements OnInit {
   // referencia al contenedor en el HTML
   @ViewChild('contenedorCampos', { static: true }) contenedorCampos!: ElementRef;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private router: Router) {}
 
   ngOnInit() {}
 
@@ -53,5 +58,11 @@ export class MistablreosasignaciondetareasPage implements OnInit {
 
     this.renderer.appendChild(item, input);
     this.renderer.appendChild(this.contenedorCampos.nativeElement, item);
+  }
+
+  // método para guardar y regresar a integrantes
+  guardar() {
+    console.log('Datos guardados correctamente');
+    this.router.navigate(['/integrantes']); //  redirige a la página de Integrantes
   }
 }

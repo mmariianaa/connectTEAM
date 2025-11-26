@@ -11,15 +11,12 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Card con usuario random -->
   <ion-card>
     <ion-card-header>
-      <!-- 👇 aquí mostramos el nombre dinámico -->
       <ion-card-title>{{ usuarioRandom }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <!-- 👇 ahora el botón llama a la función del TS -->
       <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
         Ir a Asignación de Tareas
       </ion-button>
