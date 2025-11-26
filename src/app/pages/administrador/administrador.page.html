@@ -1,26 +1,36 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar class="custom-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/" class="back-btn"></ion-back-button>
     </ion-buttons>
-    <ion-title>Administrador</ion-title>
+    <ion-title class="page-title">Administrador</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="admin-container">
+<ion-content [fullscreen]="true" class="admin-content">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Administrador</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-md="6">
-        <ion-button expand="block" (click)="crearTableros()">Crear Tableros</ion-button>
-        <ion-button expand="block" (click)="misTablerosasignartareas()">Mis Tableros</ion-button>
-        <ion-button expand="block" (click)="tareasPendientes()">Tareas Pendientes</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="content-wrapper">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-md="6" class="buttons-column">
+          <div class="button-group">
+            <ion-button expand="block" class="custom-btn primary-btn" (click)="crearTableros()">
+              <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+              Crear Tableros
+            </ion-button>
+            
+            <ion-button expand="block" class="custom-btn secondary-btn" (click)="misTablerosasignartareas()">
+              <ion-icon name="grid-outline" slot="start"></ion-icon>
+              Mis Tableros
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

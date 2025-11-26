@@ -11,15 +11,63 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ usuarioRandom }}</ion-card-title>
-    </ion-card-header>
+  <ion-grid>
+    <!-- Primera fila -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ usuarioRandom }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
+              Ir a Asignación de Tareas
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
 
-    <ion-card-content>
-      <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
-        Ir a Asignación de Tareas
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Integrante 2</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
+              Ir a Asignación de Tareas
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Segunda fila -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Integrante 3</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
+              Ir a Asignación de Tareas
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Integrante 4</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="irAsignacionTareas()" type="button">
+              Ir a Asignación de Tareas
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
