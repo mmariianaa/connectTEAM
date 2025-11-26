@@ -52,7 +52,6 @@ export class LoginPage implements OnInit {
       password: ["", [Validators.required, Validators.minLength(6)]],
       confirmPassword: ["", [Validators.required]],
       role: ['', Validators.required]
-
     }, { validator: this.passwordsMatchValidator });
   }
 
@@ -72,67 +71,64 @@ export class LoginPage implements OnInit {
   }
 
   onLogin() {
-  if (this.loginForm.invalid) {
-    this.mostrarError('Formulario incompleto', '', 'Por favor completa todos los campos antes de iniciar sesión.');
-    return;
-  }
-
-  const { email, password } = this.loginForm.value;
-  const data = { email, password };
-
-  this.authService.login(data).subscribe(
-    (res: any) => {
-      if (res.intResponse === '200') {
-        this.mostrarAlerta('Login Exitoso', '', '¡Bienvenido de nuevo!');
-      } else {
-        this.mostrarError('Error de Login', '', 'Correo o contraseña incorrectos.');
-      }
-    },
-    error => {
-      this.mostrarError('Error de Login', '', 'Error en la conexión al servidor.');
+    if (this.loginForm.invalid) {
+      this.mostrarError('Formulario incompleto', '', 'Por favor completa todos los campos antes de iniciar sesión.');
+      return;
     }
-  );
-}
+
+    const { email, password } = this.loginForm.value;
+    const data = { email, password };
+
+    this.authService.login(data).subscribe(
+      (res: any) => {
+        if (res.intResponse === '200') {
+          // 👇 aquí asumimos que el backend devuelve el rol del usuario
+          const role = res.role; 
+          this.mostrarAlerta('Login Exitoso', '', '¡Bienvenido de nuevo!', role);
+        } else {
+          this.mostrarError('Error de Login', '', 'Correo o contraseña incorrectos.');
+        }
+      },
+      error => {
+        this.mostrarError('Error de Login', '', 'Error en la conexión al servidor.');
+      }
+    );
+  }
 
   onRegister() {
-  if (this.registerForm.invalid) {
-    // Validación específica para el rol
-    if (!this.registerForm.value.role) {
-      this.mostrarError('Rol requerido', '', 'Por favor selecciona si eres Administrador o Colaborador.');
+    if (this.registerForm.invalid) {
+      if (!this.registerForm.value.role) {
+        this.mostrarError('Rol requerido', '', 'Por favor selecciona si eres Administrador o Colaborador.');
+        return;
+      }
+      if (this.registerForm.hasError('mismatch')) {
+        this.mostrarError('Error de Registro', '', 'Las contraseñas no coinciden.');
+        return;
+      }
+      this.mostrarError('Formulario incompleto', '', 'Por favor completa todos los campos antes de continuar.');
       return;
     }
 
-    // Validación de contraseñas
-    if (this.registerForm.hasError('mismatch')) {
-      this.mostrarError('Error de Registro', '', 'Las contraseñas no coinciden.');
-      return;
-    }
+    const { email, password, role } = this.registerForm.value;
+    const data = { email, password, role };
 
-    // Validación general
-    this.mostrarError('Formulario incompleto', '', 'Por favor completa todos los campos antes de continuar.');
-    return;
+    this.authService.register(data).subscribe(
+      (res: any) => {
+        if (res.intResponse === '200') {
+          const rolTexto = role === 'admin' ? 'Administrador' : 'Colaborador';
+          this.mostrarAlerta('Registro Exitoso', '', `Cuenta creada correctamente como ${rolTexto}.`, role);
+        } else {
+          this.mostrarError('Error de Registro', '', 'El correo ya está en uso.');
+        }
+      },
+      error => {
+        this.mostrarError('Error de Registro', '', 'Error en la conexión al servidor.');
+      }
+    );
   }
 
-  // Si todo está bien
-  const { email, password, role } = this.registerForm.value;
-  const data = { email, password, role };
-
-  this.authService.register(data).subscribe(
-    (res: any) => {
-      if (res.intResponse === '200') {
-        const rolTexto = role === 'admin' ? 'Administrador' : 'Colaborador';
-        this.mostrarAlerta('Registro Exitoso', '', `Cuenta creada correctamente como ${rolTexto}.`);
-      } else {
-        this.mostrarError('Error de Registro', '', 'El correo ya está en uso.');
-      }
-    },
-    error => {
-      this.mostrarError('Error de Registro', '', 'Error en la conexión al servidor.');
-    }
-  );
-}
-
-  async mostrarAlerta(header: string, sub: string, message: string) {
+  // 👇 única función mostrarAlerta
+  async mostrarAlerta(header: string, sub: string, message: string, role?: string) {
     const alerta = await this.alertita.create({
       header,
       subHeader: sub,
@@ -141,7 +137,13 @@ export class LoginPage implements OnInit {
         text: 'Ok',
         role: 'confirm',
         handler: () => {
-          this.router.navigate(['/administrador']);
+          if (role === 'admin') {
+            this.router.navigate(['/administrador']);
+          } else if (role === 'colaborador') {
+            this.router.navigate(['/perfilcolaborador']);
+          } else {
+            this.router.navigate(['/']); // fallback
+          }
         }
       }]
     });
@@ -157,5 +159,4 @@ export class LoginPage implements OnInit {
     });
     await alerta.present();
   }
- 
 }
