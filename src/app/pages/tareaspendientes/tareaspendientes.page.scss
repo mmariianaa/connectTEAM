@@ -18,6 +18,18 @@
 .animacion-card {
   animation: aparecer 0.4s ease-in-out;
 }
+.icono-borrar {
+  font-size: 22px;
+  color: red;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.tachado {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
 
 @keyframes aparecer {
   from {

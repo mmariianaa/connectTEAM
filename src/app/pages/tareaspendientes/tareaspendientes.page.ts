@@ -5,8 +5,11 @@ import {
   IonList, IonButton, IonIcon 
 } from '@ionic/angular/standalone';
 
+import { addIcons } from 'ionicons';
+import { trashOutline } from 'ionicons/icons';
+
 @Component({
-  selector: 'app-detalle-tablero',
+  selector: 'app-tareaspendientes',
   templateUrl: './tareaspendientes.page.html',
   styleUrls: ['./tareaspendientes.page.scss'],
   standalone: true,
@@ -20,11 +23,10 @@ import {
 })
 export class TareaspendientesPage {
 
-  mostrarMonica: boolean = false;
-  mostrarDario: boolean = false;
-  mostrarEmily: boolean = false;
+  mostrarMonica = false;
+  mostrarDario = false;
+  mostrarEmily = false;
 
-  // ✅ ESTADOS DE BORRADO (TACHADO)
   monicaT1 = false;
   monicaT2 = false;
 
@@ -33,6 +35,10 @@ export class TareaspendientesPage {
 
   emilyT1 = false;
   emilyT2 = false;
+
+  constructor() {
+    addIcons({'trashOutline':trashOutline});
+  }
 
   verMonica() {
     this.resetear();
@@ -55,7 +61,6 @@ export class TareaspendientesPage {
     this.mostrarEmily = false;
   }
 
-  // ✅ FUNCIONES DE BORRADO
   borrarMonicaT1() { this.monicaT1 = true; }
   borrarMonicaT2() { this.monicaT2 = true; }
 

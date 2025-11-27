@@ -37,10 +37,8 @@
             <ion-card-title>Desempeño de Monica</ion-card-title>
           </ion-card-header>
 
+
           <ion-card-content>
-
-
-            
             <ion-item><!---->
               <ion-label [class.tachado]="monicaT1">
                 ✅ Tarea 1: Completa
@@ -54,11 +52,10 @@
               <ion-icon name="trash-outline" class="icono-borrar" (click)="borrarMonicaT2()"></ion-icon>
             </ion-item><!---->
 
-
-
             <p>📎 Archivo: Subido</p>
           </ion-card-content>
         </ion-card>
+
 
         <!-- DARIO -->
         <ion-card [class.hidden]="!mostrarDario" class="animacion">
@@ -67,11 +64,26 @@
           </ion-card-header>
 
           <ion-card-content>
-            <p>✅ Tarea 1: Completa</p>
-            <p>✅ Tarea 2: Completa</p>
+
+            <ion-item>
+              <ion-label [class.tachado]="darioT1">
+                ✅ Tarea 1: Completa
+              </ion-label>
+              <ion-icon name="trash-outline" class="icono-borrar" (click)="borrarDarioT1()"></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-label [class.tachado]="darioT2">
+                ✅ Tarea 2: Completa
+              </ion-label>
+              <ion-icon name="trash-outline" class="icono-borrar" (click)="borrarDarioT2()"></ion-icon>
+            </ion-item>
+
             <p>📎 Archivo: Subido</p>
+
           </ion-card-content>
         </ion-card>
+
 
         <!-- EMILY -->
         <ion-card [class.hidden]="!mostrarEmily" class="animacion">
@@ -80,9 +92,23 @@
           </ion-card-header>
 
           <ion-card-content>
-            <p>⏳ Tarea 1: Pendiente</p>
-            <p>⏳ Tarea 2: Pendiente</p>
+
+            <ion-item>
+              <ion-label [class.tachado]="emilyT1">
+                ⏳ Tarea 1: Pendiente
+              </ion-label>
+              <ion-icon name="trash-outline" class="icono-borrar" (click)="borrarEmilyT1()"></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-label [class.tachado]="emilyT2">
+                ⏳ Tarea 2: Pendiente
+              </ion-label>
+              <ion-icon name="trash-outline" class="icono-borrar" (click)="borrarEmilyT2()"></ion-icon>
+            </ion-item>
+
             <p>📎 Archivo: No subido</p>
+
           </ion-card-content>
         </ion-card>
 
