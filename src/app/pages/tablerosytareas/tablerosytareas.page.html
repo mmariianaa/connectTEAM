@@ -1,13 +1,58 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tablerosytareas</ion-title>
+    <ion-title>Tableros y Tareas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">tablerosytareas</ion-title>
+      <ion-title size="large">Tableros y Tareas</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Tablero 1 -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ tablero1.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Descripción: {{ tablero1.descripcion }}</p>
+      <p>Fecha de creación: {{ tablero1.fecha | date }}</p>
+
+      <ion-button expand="block" color="primary" (click)="irATareasPendientes()">
+        Ir a Tareas Pendientes
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Tablero 2 -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ tablero2.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Descripción: {{ tablero2.descripcion }}</p>
+      <p>Fecha de creación: {{ tablero2.fecha | date }}</p>
+
+      <ion-button expand="block" color="primary" (click)="irATareasPendientes()">
+        Ir a Tareas Pendientes
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Tablero 3 -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ tablero3.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Descripción: {{ tablero3.descripcion }}</p>
+      <p>Fecha de creación: {{ tablero3.fecha | date }}</p>
+
+      <ion-button expand="block" color="primary" (click)="irATareasPendientes()">
+        Ir a Tareas Pendientes
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

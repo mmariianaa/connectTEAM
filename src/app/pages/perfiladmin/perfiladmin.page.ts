@@ -66,7 +66,7 @@ export class PerfiladminPage implements OnInit {
     private renderer: Renderer2,
     private router: Router
   ) {}
-
+  cantidadTableros: number = 0; 
   ngOnInit() {}
 
   async crearTablero() {

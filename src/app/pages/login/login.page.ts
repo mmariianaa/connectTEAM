@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonItem, IonInput, IonInputPasswordToggle,IonLabel, IonList, IonListHeader, IonRadio, IonRadioGroup } from '@ionic/angular/standalone';
+import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonItem, IonInput, IonInputPasswordToggle,IonLabel, IonList, IonListHeader, IonRadio, IonRadioGroup, IonHeader } from '@ionic/angular/standalone';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Auth } from 'src/app/services/auth';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonInput,
+  imports: [IonHeader, IonInput,
     IonItem,
     IonButton,
     IonCardContent,

@@ -11,8 +11,7 @@ import {
   IonRow, 
   IonCol, 
   IonBackButton, 
-  IonButton 
-} from '@ionic/angular/standalone';
+  IonButton, IonIcon, IonBadge } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -21,7 +20,7 @@ import { Router } from '@angular/router';
   templateUrl: './administrador.page.html',
   styleUrls: ['./administrador.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonBadge, IonIcon, 
     IonButton, 
     IonBackButton, 
     IonCol, 
@@ -48,11 +47,7 @@ export class AdministradorPage {
   }
 
   misTablerosasignartareas() {
-    console.log('Mis Tableros');
-  }
-
-  tareasPendientes() {
-    console.log('Tareas Pendientes');
+    this.router.navigate(['/tablerosytareas']);
   }
 
 }

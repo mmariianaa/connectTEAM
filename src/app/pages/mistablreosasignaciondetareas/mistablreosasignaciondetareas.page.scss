@@ -1,0 +1,279 @@
+// Variables de diseño consistentes
+$primary-color: #1e40af;
+$secondary-color: #3b82f6;
+$success-color: #10b981;
+$accent-color: #f59e0b;
+$light-bg: #f8fafc;
+$card-bg: #ffffff;
+$text-dark: #1e293b;
+$text-light: #64748b;
+$border-color: #e2e8f0;
+
+// Contenido principal
+ion-content {
+  --background: #f8fafc;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    z-index: 0;
+  }
+}
+
+// Toolbar consistente
+ion-toolbar {
+  --background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  
+  ion-title {
+    font-weight: 600;
+    color: white;
+    text-align: center;
+  }
+}
+
+// Grid principal
+ion-grid {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+// Panel lateral
+ion-col[size="12"][size-md="4"] {
+  background: $card-bg;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1);
+  border: 1px solid $border-color;
+  margin-bottom: 20px;
+}
+
+// Lista personalizada
+ion-list {
+  background: transparent;
+  border-radius: 16px;
+  margin-bottom: 25px;
+}
+
+// Item para nuevo campo
+ion-item[button] {
+  --background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  --color: white;
+  --border-radius: 12px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  ion-label {
+    font-weight: 600;
+  }
+  
+  &:hover {
+    --background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+  }
+}
+
+// Botón Guardar
+ion-button[color="success"] {
+  --background: linear-gradient(135deg, $success-color 0%, #34d399 100%);
+  --color: white;
+  --border-radius: 12px;
+  --box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    --background: linear-gradient(135deg, #34d399 0%, $success-color 100%);
+    --box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Panel de campos dinámicos
+ion-col[size="12"][size-md="8"] {
+  background: $card-bg;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1);
+  border: 1px solid $border-color;
+  min-height: 400px;
+}
+
+// Contenedor de campos dinámicos
+#contenedorCampos {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Estilos para los campos dinámicos
+.campo-dinamico {
+  background: $light-bg;
+  border-radius: 16px;
+  padding: 25px;
+  border-left: 4px solid $primary-color;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+  
+  .campo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    
+    h3 {
+      margin: 0;
+      color: $text-dark;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .campo-actions {
+      display: flex;
+      gap: 10px;
+      
+      ion-button {
+        --padding-start: 8px;
+        --padding-end: 8px;
+        --background: transparent;
+        --color: #{$text-light};
+        
+        &:hover {
+          --color: #{$primary-color};
+        }
+      }
+    }
+  }
+  
+  .campo-content {
+    ion-item {
+      --background: white;
+      --border-radius: 12px;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      margin-bottom: 12px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      ion-input, ion-textarea {
+        --padding-start: 0;
+        --padding-end: 0;
+      }
+    }
+  }
+}
+
+// Estado vacío
+.estado-vacio {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-light;
+  
+  ion-icon {
+    font-size: 3rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    color: $text-dark;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  p {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+  }
+}
+
+// Animaciones
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ion-col[size="12"][size-md="4"],
+ion-col[size="12"][size-md="8"] {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.campo-dinamico {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  ion-grid {
+    padding: 15px;
+  }
+  
+  ion-col[size="12"][size-md="4"],
+  ion-col[size="12"][size-md="8"] {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  
+  ion-col[size="12"][size-md="8"] {
+    min-height: 300px;
+  }
+  
+  .campo-dinamico {
+    padding: 20px;
+    
+    .campo-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      
+      .campo-actions {
+        align-self: flex-end;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  ion-grid {
+    padding: 12px;
+  }
+  
+  ion-col[size="12"][size-md="4"],
+  ion-col[size="12"][size-md="8"] {
+    padding: 18px;
+  }
+  
+  .campo-dinamico {
+    padding: 18px;
+  }
+}

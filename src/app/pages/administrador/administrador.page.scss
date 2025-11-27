@@ -1,25 +1,272 @@
-.admin-container {
-  --background: linear-gradient(135deg, #e3f2fd, #bbdefb); // azul suave a azul claro
+// Variables de diseño
+$primary-color: var(--ion-color-primary);
+$secondary-color: #6c757d;
+$success-color: var(--ion-color-success);
+$warning-color: var(--ion-color-warning);
+$background-color: #f8f9fa;
+$card-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+$hover-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+$border-radius: 16px;
+
+// Contenido principal
+.admin-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+  }
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
-ion-toolbar {
-  --background: #3f51b5; // azul profundo
-  --color: #ffffff;
+// Toolbar personalizado
+.custom-toolbar {
+  --background: rgba(255, 255, 255, 0.1);
+  --border-color: transparent;
+  backdrop-filter: blur(10px);
+  
+  .page-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+  }
+  
+  .back-btn {
+    --color: white;
+    --icon-margin-end: 8px;
+  }
 }
 
-ion-title {
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+// Columna de botones
+.buttons-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-ion-button {
-  margin-top: 12px;
-  --background: linear-gradient(to right, #64b5f6, #3f51b5); // azul medio a profundo
-  --color: #fff;
-  --border-radius: 12px;
-  font-weight: bold;
+.button-group {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: $border-radius;
+  padding: 30px 25px;
+  box-shadow: $card-shadow;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Botones personalizados
+.custom-btn {
+  --border-radius: #{$border-radius};
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  margin: 12px 0;
+  font-weight: 600;
+  font-size: 1rem;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  ion-icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+  }
+}
+
+// Botón primario
+.primary-btn {
+  --background: linear-gradient(135deg, #{$primary-color} 0%, #5a9bff 100%);
+  --color: white;
+  --box-shadow: 0 6px 20px rgba(var(--ion-color-primary-rgb), 0.3);
+  
+  &:hover {
+    --background: linear-gradient(135deg, #5a9bff 0%, #{$primary-color} 100%);
+    transform: translateY(-2px);
+    --box-shadow: 0 8px 25px rgba(var(--ion-color-primary-rgb), 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Botón secundario
+.secondary-btn {
+  --background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+  --color: white;
+  --box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+  
+  &:hover {
+    --background: linear-gradient(135deg, #868e96 0%, #6c757d 100%);
+    transform: translateY(-2px);
+    --box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Botón de advertencia
+.warning-btn {
+  --background: linear-gradient(135deg, #{$warning-color} 0%, #ffd54f 100%);
+  --color: #000000;
+  --box-shadow: 0 6px 20px rgba(var(--ion-color-warning-rgb), 0.3);
+  
+  &:hover {
+    --background: linear-gradient(135deg, #ffd54f 0%, #{$warning-color} 100%);
+    transform: translateY(-2px);
+    --box-shadow: 0 8px 25px rgba(var(--ion-color-warning-rgb), 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Efectos de animación
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button-group {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.custom-btn {
+  animation: fadeInUp 0.8s ease-out;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+}
+
+// Efecto de brillo al hacer hover
+.custom-btn:hover {
+  animation: pulse 0.3s ease;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 15px;
+  }
+  
+  .button-group {
+    padding: 25px 20px;
+    margin: 10px;
+  }
+  
+  .custom-btn {
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-size: 0.95rem;
+    
+    ion-icon {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .button-group {
+    padding: 20px 15px;
+  }
+  
+  .custom-btn {
+    --padding-top: 14px;
+    --padding-bottom: 14px;
+    margin: 10px 0;
+  }
+}
+
+// Efecto de partículas (opcional)
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: float 6s infinite linear;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px);
+    opacity: 0;
+  }
 }
