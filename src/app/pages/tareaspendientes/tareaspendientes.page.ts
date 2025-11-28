@@ -37,7 +37,7 @@ export class TareaspendientesPage {
   emilyT2 = false;
 
   constructor() {
-    addIcons({'trashOutline':trashOutline});
+    addIcons({trashOutline,'trashOutline':trashOutline});
   }
 
   verMonica() {
