@@ -63,7 +63,6 @@ export class LoginPage implements OnInit {
     this.registerForm.reset();
   }
 
-  // Validación personalizada para confirmar contraseña
   passwordsMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirm = form.get('confirmPassword')?.value;
@@ -77,19 +76,20 @@ export class LoginPage implements OnInit {
     }
 
     const { email, password } = this.loginForm.value;
-    const data = { email, password };
 
-    this.authService.login(data).subscribe(
+    this.authService.login(email, password).subscribe(
       (res: any) => {
+        console.log('Respuesta completa del login:', res);
         if (res.intResponse === '200') {
-          // 👇 aquí asumimos que el backend devuelve el rol del usuario
-          const role = res.role; 
+          const role = res.Respuesta?.rol || res.Respuesta?.Rol;
+          console.log('Rol del usuario:', role);
           this.mostrarAlerta('Login Exitoso', '', '¡Bienvenido de nuevo!', role);
         } else {
           this.mostrarError('Error de Login', '', 'Correo o contraseña incorrectos.');
         }
       },
       error => {
+        console.error('Error en login:', error);
         this.mostrarError('Error de Login', '', 'Error en la conexión al servidor.');
       }
     );
@@ -110,11 +110,11 @@ export class LoginPage implements OnInit {
     }
 
     const { email, password, role } = this.registerForm.value;
-    const data = { email, password, role };
 
-    this.authService.register(data).subscribe(
+    this.authService.register(email, password, role).subscribe(
       (res: any) => {
-        if (res.intResponse === '200') {
+        console.log('Respuesta completa del registro:', res);
+        if (res.intResponse === '200' || res.intResponse === '201') {
           const rolTexto = role === 'admin' ? 'Administrador' : 'Colaborador';
           this.mostrarAlerta('Registro Exitoso', '', `Cuenta creada correctamente como ${rolTexto}.`, role);
         } else {
@@ -122,12 +122,12 @@ export class LoginPage implements OnInit {
         }
       },
       error => {
+        console.error('Error en registro:', error);
         this.mostrarError('Error de Registro', '', 'Error en la conexión al servidor.');
       }
     );
   }
 
-  // 👇 única función mostrarAlerta
   async mostrarAlerta(header: string, sub: string, message: string, role?: string) {
     const alerta = await this.alertita.create({
       header,
@@ -142,7 +142,7 @@ export class LoginPage implements OnInit {
           } else if (role === 'colaborador') {
             this.router.navigate(['/perfilcolaborador']);
           } else {
-            this.router.navigate(['/']); // fallback
+            this.router.navigate(['/']);
           }
         }
       }]
