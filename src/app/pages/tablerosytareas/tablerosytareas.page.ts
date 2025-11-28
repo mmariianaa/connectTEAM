@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router'; // 👈 importa RouterModule también
+import { Router, RouterModule } from '@angular/router'; // importa RouterModule también
 import {
   IonContent,
   IonHeader,
@@ -44,6 +44,6 @@ export class TablerosytareasPage implements OnInit {
   ngOnInit() {}
 
   irATareasPendientes() {
-    this.router.navigate(['/tareaspendientes']); // 👈 redirige a la ruta definida en tu app-routing.module.ts
+    this.router.navigate(['/tareaspendientes']); // redirige a la ruta definida en tu app-routing.module.ts
   }
 }
