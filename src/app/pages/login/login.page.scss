@@ -8,6 +8,12 @@ $text-dark: #1e293b;
 $text-light: #64748b;
 $border-color: #e2e8f0;
 
+// Colores más intensos para botones
+$button-primary: #1d4ed8;
+$button-primary-hover: #1e40af;
+$button-secondary: #dc2626;
+$button-secondary-hover: #b91c1c;
+
 // Estilos generales
 .login-container {
   min-height: 100vh;
@@ -143,41 +149,105 @@ form {
   }
 }
 
-// Botones
+// BOTONES MÁS MARCADOS Y CON MEJOR CONTRASTE
 ion-button {
   --border-radius: 12px;
-  --box-shadow: 0 6px 20px rgba(30, 64, 175, 0.3);
-  --padding-top: 18px;
-  --padding-bottom: 18px;
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  margin-top: 10px;
-  transition: all 0.3s ease;
+  --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.8px;
+  margin-top: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  height: 56px;
   
   &[type="submit"] {
-    --background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+    --background: linear-gradient(135deg, $button-primary 0%, #1e3a8a 100%);
     --color: white;
+    --border-width: 2px;
+    --border-style: solid;
+    --border-color: #1e3a8a;
+    text-transform: uppercase;
+    font-size: 1rem;
     
     &:hover {
-      --background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
-      transform: translateY(-2px);
-      --box-shadow: 0 10px 25px rgba(30, 64, 175, 0.4);
+      --background: linear-gradient(135deg, $button-primary-hover 0%, #1e3a8a 100%);
+      transform: translateY(-3px) scale(1.02);
+      --box-shadow: 0 15px 35px rgba(29, 78, 216, 0.4);
+      border: 2px solid #1e3a8a;
+    }
+    
+    &:active {
+      transform: translateY(-1px) scale(1.01);
+      --box-shadow: 0 8px 20px rgba(29, 78, 216, 0.3);
     }
   }
   
   &[fill="clear"] {
-    --color: #{$secondary-color};
-    --background: transparent;
-    font-size: 0.9rem;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
+    --color: #{$button-primary};
+    --background: rgba(29, 78, 216, 0.1);
+    font-size: 1rem;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-weight: 600;
+    border: 2px solid rgba(29, 78, 216, 0.3);
+    height: 52px;
     
     &:hover {
-      --color: #{$primary-color};
-      background: rgba(30, 64, 175, 0.05);
+      --color: #{$button-primary-hover};
+      --background: rgba(29, 78, 216, 0.2);
+      border: 2px solid rgba(29, 78, 216, 0.5);
+      transform: translateY(-2px);
+      --box-shadow: 0 8px 20px rgba(29, 78, 216, 0.2);
     }
   }
+}
+
+// Botón secundario alternativo (si necesitas otro tipo de botón)
+.secondary-button {
+  --background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  --color: white;
+  --box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+  border: 2px solid #b91c1c;
+  
+  &:hover {
+    --background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+    transform: translateY(-3px);
+    --box-shadow: 0 15px 35px rgba(220, 38, 38, 0.4);
+  }
+}
+
+// Efecto de pulso para llamar la atención
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(29, 78, 216, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(29, 78, 216, 0);
+  }
+}
+
+// Aplicar pulso al botón principal (opcional)
+ion-button[type="submit"] {
+  animation: pulse-glow 2s infinite;
+  
+  // Remover animación después del primer hover
+  &:hover {
+    animation: none;
+  }
+}
+
+// Grupo de botones con mejor espaciado
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
 }
 
 // Animaciones
@@ -225,9 +295,14 @@ ion-card {
   }
   
   ion-button {
-    --padding-top: 16px;
-    --padding-bottom: 16px;
-    font-size: 0.95rem;
+    --padding-top: 18px;
+    --padding-bottom: 18px;
+    font-size: 1rem;
+    height: 52px;
+    
+    &[fill="clear"] {
+      height: 48px;
+    }
   }
 }
 
@@ -242,4 +317,36 @@ ion-input {
 ion-input {
   --placeholder-color: #{$text-light};
   --placeholder-opacity: 0.8;
+}
+
+// Estados de loading para botones (opcional)
+ion-button[disabled] {
+  --background: #{$text-light};
+  --color: white;
+  transform: none !important;
+  animation: none !important;
+}
+
+// Mejoras visuales adicionales para los botones
+ion-button {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  &:active::after {
+    width: 300px;
+    height: 300px;
+  }
 }
