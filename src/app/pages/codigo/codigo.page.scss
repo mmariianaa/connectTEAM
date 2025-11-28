@@ -1,0 +1,279 @@
+// Variables de diseño
+$primary-color: #2563eb;
+$primary-dark: #1d4ed8;
+$text-dark: #1e293b;
+$text-light: #64748b;
+$border-color: #e2e8f0;
+$card-bg: #ffffff;
+$light-bg: #f8fafc;
+
+// Contenedor principal
+.code-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+  }
+}
+
+// Tarjeta del código
+.code-card {
+  background: $card-bg;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  padding: 40px 35px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed, #ec4899);
+    border-radius: 24px 24px 0 0;
+  }
+}
+
+// Icono
+.code-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, $primary-color, $primary-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+
+  ion-icon {
+    font-size: 2.5rem;
+    color: white;
+  }
+}
+
+// Encabezado
+.code-header {
+  margin-bottom: 35px;
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $text-light;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+// Formulario
+.code-form {
+  .code-input-item {
+    --background: #{$light-bg};
+    --border-radius: 16px;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --inner-padding-end: 0;
+    margin-bottom: 30px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+
+    &.item-has-focus {
+      --background: #ffffff;
+      border: 2px solid $primary-color;
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+    }
+
+    ion-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-dark;
+      margin-bottom: 8px;
+    }
+
+    .code-input {
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+      --padding-start: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-align: center;
+
+      &::placeholder {
+        color: #94a3b8;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+// Botón de ingresar
+.submit-button {
+  --background: linear-gradient(135deg, $primary-color, $primary-dark);
+  --background-hover: linear-gradient(135deg, $primary-dark, #1e40af);
+  --color: white;
+  --border-radius: 16px;
+  --box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+  height: 56px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    --box-shadow: 0 18px 40px rgba(37, 99, 235, 0.5);
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  ion-icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+  }
+}
+
+// Enlace de ayuda
+.help-link {
+  margin-top: 25px;
+
+  .help-text {
+    color: $primary-color;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    &:hover {
+      color: $primary-dark;
+      background: rgba(37, 99, 235, 0.1);
+      text-decoration: underline;
+    }
+  }
+}
+
+// Animaciones
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.code-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Efecto de pulso en el icono
+@keyframes pulse {
+  0% {
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(37, 99, 235, 0.5);
+  }
+  100% {
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+  }
+}
+
+.code-icon {
+  animation: pulse 3s infinite;
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .code-container {
+    padding: 15px;
+  }
+
+  .code-card {
+    padding: 30px 25px;
+    border-radius: 20px;
+  }
+
+  .code-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+
+    ion-icon {
+      font-size: 2rem;
+    }
+  }
+
+  .code-header {
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .code-form .code-input-item {
+    --border-radius: 14px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    margin-bottom: 25px;
+  }
+
+  .submit-button {
+    --padding-top: 18px;
+    --padding-bottom: 18px;
+    height: 52px;
+    font-size: 1rem;
+  }
+}
+
+// Estados de validación
+.code-input.ng-valid.ng-touched {
+  --color: #059669;
+}
+
+.code-input.ng-invalid.ng-touched {
+  --color: #dc2626;
+}

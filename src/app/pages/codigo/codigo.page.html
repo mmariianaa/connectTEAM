@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>código</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">código</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Contenedor principal -->
+  <div class="code-container">
+    <div class="code-card">
+      <!-- Icono o imagen -->
+      <div class="code-icon">
+        <ion-icon name="key-outline"></ion-icon>
+      </div>
+
+      <!-- Título y descripción -->
+      <div class="code-header">
+        <h2>Ingresar Código</h2>
+        <p>Por favor ingresa el código de acceso proporcionado</p>
+      </div>
+
+      <!-- Formulario de código -->
+      <form class="code-form">
+        <ion-item class="code-input-item">
+          <ion-label position="stacked">Código de Acceso</ion-label>
+          <ion-input 
+            type="text"
+            placeholder="Ej: ABC123"
+            class="code-input"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <!-- Botón de ingresar -->
+        <ion-button 
+          expand="block" 
+          class="submit-button"
+          type="submit">
+          <ion-icon name="arrow-forward" slot="start"></ion-icon>
+          Ingresar
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

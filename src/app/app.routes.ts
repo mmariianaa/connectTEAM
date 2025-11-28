@@ -47,7 +47,11 @@ export const routes: Routes = [
   {
     path: 'tareaspendientes',
     loadComponent: () => import('./pages/tareaspendientes/tareaspendientes.page').then( m => m.TareaspendientesPage)
+  },  {
+    path: 'codigo',
+    loadComponent: () => import('./pages/codigo/codigo.page').then( m => m.CodigoPage)
   }
+
 
 
 ];
