@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { 
   IonContent, 
   IonHeader, 
@@ -12,15 +13,14 @@ import {
   IonCardTitle, 
   IonCardSubtitle, 
   IonCardContent, 
-  IonButton 
-} from '@ionic/angular/standalone';
+  IonButton, IonLabel, IonCheckbox, IonItem, IonCol, IonList, IonInput, IonRow, IonGrid } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-perfilcolaborador',
   templateUrl: './perfilcolaborador.page.html',
   styleUrls: ['./perfilcolaborador.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonGrid, IonRow, IonInput, IonList, IonCol, IonItem, IonCheckbox, IonLabel, 
     IonButton, 
     IonCardContent, 
     IonCardSubtitle, 
@@ -37,7 +37,7 @@ import {
 })
 export class PerfilcolaboradorPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private alertController: AlertController) { }
 
   ngOnInit() {}
 
@@ -49,8 +49,16 @@ export class PerfilcolaboradorPage implements OnInit {
     this.router.navigate(['/tareaspendientes']);
   }
 
-  volverLogin() {
+  volver() {
     this.router.navigate(['/login']);
   }
+  async guardar() {
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'Se guardó con éxito',
+      buttons: ['OK']
+    });
 
+    await alert.present();
+  }
 }
