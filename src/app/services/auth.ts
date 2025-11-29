@@ -14,8 +14,8 @@ export class Auth {
     return this.http.post(_URL_LOGIN, data);
   }
 
-  public register(email: string, password: string, role: string): Observable<any> {
-    const data = { email, password, role };
+  public register(email: string, password: string, role: string, nombre: string): Observable<any> {
+    const data = { email, password, role, nombre };
     return this.http.post(_URL_REGISTER, data);
   }
 }

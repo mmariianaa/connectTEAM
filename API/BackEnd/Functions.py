@@ -97,14 +97,14 @@ def fnPostLogin(email, password):
         objResponse['Error'] = str(e)
         return jsonify(objResponse)
     
-def fnPostRegistro(email, password, role=None):
+def fnPostRegistro(email, password, role=None, nombre=""):
     """Registro de nuevo usuario"""
     try:
         if ColabsKey.dbUsers is None:
             ColabsKey.initialize_db()
             
         email_limpio = limpiar_campo(email)
-        print(f"Registrando usuario: email={email_limpio}, role={role}")
+        print(f"Registrando usuario: email={email_limpio}, role={role}, nombre={nombre}")
             
         # Verificar si el email ya existe
         usuario_existente = ColabsKey.dbUsers.find_one({
@@ -126,7 +126,7 @@ def fnPostRegistro(email, password, role=None):
         nuevo_usuario = {
             "email": email_limpio,
             "password": password,
-            "nombre": "",
+            "nombre": nombre,
             "rol": rol_final
         }
         
@@ -138,6 +138,7 @@ def fnPostRegistro(email, password, role=None):
             objResponse['Respuesta'] = {
                 "id": str(result.inserted_id),
                 "email": email_limpio,
+                "nombre": nombre,
                 "rol": rol_final
             }
             return jsonify(objResponse)

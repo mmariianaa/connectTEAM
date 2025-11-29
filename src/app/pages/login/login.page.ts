@@ -51,6 +51,7 @@ export class LoginPage implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
       confirmPassword: ["", [Validators.required]],
+      nombre: ['', Validators.required],
       role: ['', Validators.required]
     }, { validator: this.passwordsMatchValidator });
   }
@@ -109,9 +110,9 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const { email, password, role } = this.registerForm.value;
+    const { email, password, role,nombre } = this.registerForm.value;
 
-    this.authService.register(email, password, role).subscribe(
+    this.authService.register(email, password, role, nombre).subscribe(
       (res: any) => {
         console.log('Respuesta completa del registro:', res);
         if (res.intResponse === '200' || res.intResponse === '201') {
