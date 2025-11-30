@@ -27,6 +27,8 @@ import { Router } from '@angular/router';
 interface Tablero {
   titulo: string;
   codigo: number;
+  creador:string;
+  fecha:string;
 }
 
 @Component({
@@ -73,26 +75,31 @@ export class PerfiladminPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Nuevo Tablero',
       inputs: [
-        {
-          name: 'titulo',
-          type: 'text',
-          placeholder: 'Escribe el título del tablero'
-        }
-      ],
+       { name: 'titulo', type: 'text', placeholder: 'Título del tablero' },
+      { name: 'creador', type: 'text', placeholder: 'Nombre del creador' },
+      { name: 'fecha', type: 'date', placeholder: 'Fecha de creación' }
+    ],
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Crear',
           handler: (data) => {
-            if (data.titulo && data.titulo.trim() !== '') {
-              const codigo4Digitos = Math.floor(1000 + Math.random() * 9000);
+            if (data.titulo && data.creador) {
+              const codigo = Math.floor(1000 + Math.random() * 9000);
 
               const nuevoTablero: Tablero = {
                 titulo: data.titulo,
-                codigo: codigo4Digitos
+                codigo: codigo,
+                creador: data.creador,
+                fecha: data.fecha
               };
 
-              this.tableros.push(nuevoTablero);
+              //Guardar en lista interna
+              this.tableros.push(nuevoTablero)  ;
+              this.cantidadTableros = this.tableros.length;
+            
+
+              
 
               // Crear dinámicamente un card
               const card = this.renderer.createElement('ion-card');
@@ -103,14 +110,16 @@ export class PerfiladminPage implements OnInit {
               const button = this.renderer.createElement('ion-button');
 
               title.textContent = nuevoTablero.titulo;
-              subtitle.textContent = `Código: ${nuevoTablero.codigo}`;
-              content.textContent = 'Este tablero fue creado por el administrador.';
-              button.textContent = 'Asignar tarea';
+              subtitle.textContent = `Código: ${codigo}`;
+              content.innerHTML = `
+              <p>Fecha: ${data.fecha}</p>
+              <p>Creado por: ${data.creador}</p>
+            `;
+            button.textContent = 'Asignar tarea';
+            button.addEventListener('click', () => {
+              this.router.navigate(['/integrantes']);
+            });
 
-              // Evento de click → navegar a la pantalla "tablero"
-              button.addEventListener('click', () => {
-                this.router.navigate(['/integrantes']);
-              });
 
               this.renderer.appendChild(header, title);
               this.renderer.appendChild(header, subtitle);

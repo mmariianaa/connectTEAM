@@ -76,7 +76,6 @@ def postRegistro():
         
         email = data.get('email')
         password = data.get('password')
-        nombre = data.get('nombre')
         role = data.get('role')
         
         if not email or not password:
@@ -84,7 +83,7 @@ def postRegistro():
             objResponse['Error'] = "Los campos 'email' y 'password' son requeridos"
             return jsonify(objResponse)
             
-        objResult = CallMethod.fnPostRegistro(email, password, role, nombre)
+        objResult = CallMethod.fnPostRegistro(email, password, role)
         return objResult
         
     except Exception as e:
