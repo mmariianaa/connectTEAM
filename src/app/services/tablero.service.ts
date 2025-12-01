@@ -15,4 +15,9 @@ export class TableroService {
   obtenerTableros(): Observable<any> {
     return this.http.get(_URL_TABLERO);
   }
+
+  obtenerTablerosPorPropietario(propietarioId: string): Observable<any> {
+  return this.http.get(`${_URL_TABLERO}/propietario/${propietarioId}`);
+}
+
 }

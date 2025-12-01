@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 import BackEnd.Functions as CallMethod
 import BackEnd.GlobalInfo.ResponseMessages as respuestas
+import BackEnd.GlobalInfo.Keys as ColabsKey
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -144,6 +145,44 @@ def getTableros():
 
     except Exception as e:
         print(f"Error en getTableros: {e}")
+        return jsonify(respuestas.err500)
+    
+
+@app.route('/tablero/propietario/<propietario_id>', methods=["GET"])
+@cross_origin()
+def getTablerosByPropietario(propietario_id):
+    try:
+        if ColabsKey.dbTableros is None:
+            ColabsKey.initialize_db()
+
+        from bson import ObjectId
+
+        try:
+            oid = ObjectId(propietario_id)
+        except Exception:
+            r = respuestas.err203.copy()
+            r["Error"] = "El propietario_id no es un ObjectId válido"
+            return jsonify(r)
+
+        docs = list(ColabsKey.dbTableros.find({"propietario": oid}))
+        tableros = []
+        for d in docs:
+            tableros.append({
+                "id": str(d.get("_id")),
+                "nombre": d.get("nombre", ""),
+                "propietario": str(d.get("propietario")) if d.get("propietario") else "",
+                "colaboradores": [str(c) for c in d.get("colaboradores", [])],
+                "codigoRandom": d.get("codigoRandom", ""),
+                "fechaCreacion": d.get("fechaCreacion").isoformat() if d.get("fechaCreacion") else "",
+                "estado": d.get("estado", "activo")
+            })
+
+        r = respuestas.succ200.copy()
+        r["Respuesta"] = tableros
+        return jsonify(r)
+
+    except Exception as e:
+        print(f"Error en getTablerosByPropietario: {e}")
         return jsonify(respuestas.err500)
 
 

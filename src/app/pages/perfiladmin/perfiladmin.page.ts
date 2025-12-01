@@ -78,17 +78,35 @@ export class PerfiladminPage implements OnInit {
   ngOnInit() {
     // Recuperar el id del usuario guardado en login
   this.propietarioId = localStorage.getItem('userId') || '';
-    // Cargar tableros existentes desde DB y renderizarlos manualmente
-    this.tableroService.obtenerTableros().subscribe({
+    
+  // 2) Si hay id, cargar sus tableros
+  if (this.propietarioId) {
+    this.tableroService.obtenerTablerosPorPropietario(this.propietarioId).subscribe({
       next: (res: any) => {
-        const lista = res?.Respuesta || [];
-        this.cantidadTableros = lista.length;
+        const lista = Array.isArray(res?.Respuesta) ? res.Respuesta : [];
+
+        // 3) Limpiar contenedor para evitar duplicados
+        this.limpiarTablerosContainer();
+
+        // 4) Pintar cada tablero con Renderer2
         lista.forEach((t: any) => this.pintarTablero(t));
+
+        // 5) Actualizar contador
+        this.cantidadTableros = lista.length;
       },
-      error: (err: any) => console.error('Error al cargar tableros:', err)
+      error: (err: any) => console.error('Error al cargar tableros del propietario:', err)
     });
   }
+}
 
+// Auxiliar: limpiar el contenedor antes de repintar
+private limpiarTablerosContainer() {
+  const cont = this.tablerosContainer?.nativeElement;
+  if (!cont) return;
+  while (cont.firstChild) {
+    cont.removeChild(cont.firstChild);
+  }
+}
   async crearTablero() {
     const alert = await this.alertCtrl.create({
       header: 'Nuevo Tablero',
