@@ -3,11 +3,6 @@
     <ion-title>Perfil del Colaborador</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-header>
-  <ion-toolbar class="custom-toolbar elegant-toolbar">
-    <ion-title class="elegant-title">Nombre del Tablero</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
   <ion-grid>
@@ -23,26 +18,18 @@
             <!-- Campo para agregar código -->
             <ion-item>
               <ion-label position="stacked">Agregar Código</ion-label>
-              <ion-input placeholder="Escribe tu código aquí"></ion-input>
+              <ion-input [(ngModel)]="codigoInput" placeholder="Escribe tu código aquí"></ion-input>
             </ion-item>
 
-            <!-- Lista de tableros creados por el admin -->
-            <ion-list>
-              <ion-item>
-                <ion-label>Tablero 1 - Gestión de proyectos</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Tablero 2 - Marketing</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Tablero 3 - Planificación anual</ion-label>
-              </ion-item>
-            </ion-list>
+            <!-- Botón para unirse -->
+            <ion-button expand="block" color="primary" (click)="unirmePorCodigo()">Unirme</ion-button>
+
+            <!-- Contenedor dinámico de tableros -->
+            <h3 style="margin-top: 16px;">Mis tableros</h3>
+            <div #misTablerosContainer></div>
 
             <!-- Botón volver -->
-            <ion-button expand="block" color="primary" (click)="volver()">
-              Volver
-            </ion-button>
+            <ion-button expand="block" color="medium" (click)="volver()">Volver</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -53,31 +40,8 @@
           <ion-card-header>
             <ion-card-title>Actividades Asignadas</ion-card-title>
           </ion-card-header>
-
           <ion-card-content>
-            <!-- Actividad 1 -->
-            <ion-item>
-              <ion-label>Actividad 1: Redactar informe</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-              <input type="file" />
-            </ion-item>
-
-            <!-- Actividad 2 -->
-            <ion-item>
-              <ion-label>Actividad 2: Diseñar presentación</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-              <input type="file" />
-            </ion-item>
-
-            <!-- Actividad 3 -->
-            <ion-item>
-              <ion-label>Actividad 3: Revisar documentación</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-              <input type="file" />
-            </ion-item>
-            <ion-button expand="block" color="primary" (click)="guardar()">
-              Verificar y Guardar
-            </ion-button>
+            <!-- Aquí luego conectamos las tareas -->
           </ion-card-content>
         </ion-card>
       </ion-col>

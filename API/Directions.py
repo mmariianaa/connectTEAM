@@ -120,6 +120,69 @@ def postTablero():
     except Exception as e:
         print(f"Error en creación de tablero: {e}")
         return jsonify(respuestas.err500)
+    
+@app.route('/tablero/unirse', methods=["POST"])
+@cross_origin()
+def unirseATableroPorCodigo():
+    data = request.get_json()
+    colaborador_id = data.get("colaboradorId")
+    codigo = data.get("codigoRandom")
+
+    oid_colab = ObjectId(colaborador_id)
+    usuario = ColabsKey.dbUsers.find_one({"_id": oid_colab})
+    if not usuario:
+        return jsonify({"Error": "El colaborador no existe"})
+
+    tablero = ColabsKey.dbTableros.find_one({"codigoRandom": codigo})
+    if not tablero:
+        return jsonify({"Error": "No existe un tablero con ese código"})
+
+    ColabsKey.dbTableros.update_one(
+        {"_id": tablero["_id"]},
+        {"$addToSet": {"colaboradores": oid_colab}}
+    )
+
+    return jsonify({
+        "Respuesta": {
+            "mensaje": "Te has unido al tablero",
+            "tableroId": str(tablero["_id"]),
+            "nombre": tablero.get("nombre", "")
+        }
+    })
+
+@app.route('/tablero/colaborador/<colaborador_id>', methods=["GET"])
+@cross_origin()
+def getTablerosPorColaborador(colaborador_id):
+    try:
+        oid = ObjectId(colaborador_id)
+        docs = list(ColabsKey.dbTableros.find({"colaboradores": oid}))
+        tableros = []
+
+        for d in docs:
+            propietario_id = d.get("propietario")
+            propietario_nombre = ""
+
+            if propietario_id:
+                try:
+                    u = ColabsKey.dbUsers.find_one({"_id": propietario_id})
+                    if u:
+                        propietario_nombre = u.get("nombre", "")
+                except:
+                    propietario_nombre = ""
+
+            tableros.append({
+                "id": str(d["_id"]),
+                "nombre": d.get("nombre", ""),
+                "codigoRandom": d.get("codigoRandom", ""),
+                "estado": d.get("estado", "activo"),
+                "propietarioNombre": propietario_nombre
+            })
+
+        return jsonify({"Respuesta": tableros})
+    except Exception as e:
+        print(f"Error en getTablerosPorColaborador: {e}")
+        return jsonify({"Error": "No se pudo obtener los tableros"})
+
 
 @app.route('/tablero', methods=["GET"])
 @cross_origin()

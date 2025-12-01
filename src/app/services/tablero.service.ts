@@ -6,7 +6,8 @@ const _URL_TABLERO = 'http://localhost:3000/tablero';
 
 @Injectable({ providedIn: 'root' })
 export class TableroService {
-  constructor(private http: HttpClient) {}
+  private baseUrl = 'http://localhost:3000/';
+  constructor(private http: HttpClient) { }
 
   crearTablero(tablero: any): Observable<any> {
     return this.http.post(_URL_TABLERO, tablero);
@@ -17,7 +18,17 @@ export class TableroService {
   }
 
   obtenerTablerosPorPropietario(propietarioId: string): Observable<any> {
-  return this.http.get(`${_URL_TABLERO}/propietario/${propietarioId}`);
-}
+    return this.http.get(`${_URL_TABLERO}/propietario/${propietarioId}`);
+  }
+  unirsePorCodigo(colaboradorId: string, codigoRandom: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/tablero/unirse`, {
+      colaboradorId,
+      codigoRandom
+    });
+  }
+
+  obtenerTablerosPorColaborador(colaboradorId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/tablero/colaborador/${colaboradorId}`);
+  }
 
 }
