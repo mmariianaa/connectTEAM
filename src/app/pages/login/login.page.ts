@@ -84,6 +84,11 @@ export class LoginPage implements OnInit {
         if (res.intResponse === '200') {
           const role = res.Respuesta?.rol || res.Respuesta?.Rol;
           console.log('Rol del usuario:', role);
+
+          if(res.Respuesta?.id){
+            localStorage.setItem('userId', res.Respuesta.id);
+            }
+
           this.mostrarAlerta('Login Exitoso', '', '¡Bienvenido de nuevo!', role);
         } else {
           this.mostrarError('Error de Login', '', 'Correo o contraseña incorrectos.');

@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { TableroService } from '../../services/tablero.service'; // ⚠️ Ajusta la ruta según tu estructura real
 import {
   IonButtons,
   IonList,
@@ -21,14 +24,15 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 interface Tablero {
-  titulo: string;
-  codigo: number;
-  creador:string;
-  fecha:string;
+  id?: string;
+  nombre: string;
+  propietario: string;
+  colaboradores: string[];
+  codigoRandom: string;
+  fechaCreacion: string;
+  estado?: string;
 }
 
 @Component({
@@ -61,79 +65,104 @@ interface Tablero {
 })
 export class PerfiladminPage implements OnInit {
   @ViewChild('tablerosContainer', { static: true }) tablerosContainer!: ElementRef;
-  tableros: Tablero[] = [];
+  cantidadTableros = 0;
+  propietarioId = ''; // aquí debes asignar el id del admin logueado
 
   constructor(
     private alertCtrl: AlertController,
     private renderer: Renderer2,
-    private router: Router
-  ) {}
-  cantidadTableros: number = 0; 
-  ngOnInit() {}
+    private router: Router,
+    private tableroService: TableroService
+  ) { }
+
+  ngOnInit() {
+    // Recuperar el id del usuario guardado en login
+  this.propietarioId = localStorage.getItem('userId') || '';
+    // Cargar tableros existentes desde DB y renderizarlos manualmente
+    this.tableroService.obtenerTableros().subscribe({
+      next: (res: any) => {
+        const lista = res?.Respuesta || [];
+        this.cantidadTableros = lista.length;
+        lista.forEach((t: any) => this.pintarTablero(t));
+      },
+      error: (err: any) => console.error('Error al cargar tableros:', err)
+    });
+  }
 
   async crearTablero() {
     const alert = await this.alertCtrl.create({
       header: 'Nuevo Tablero',
       inputs: [
-       { name: 'titulo', type: 'text', placeholder: 'Título del tablero' },
-      { name: 'creador', type: 'text', placeholder: 'Nombre del creador' },
-      { name: 'fecha', type: 'date', placeholder: 'Fecha de creación' }
-    ],
+        { name: 'titulo', type: 'text', placeholder: 'Título del tablero' },
+        { name: 'fecha', type: 'date', placeholder: 'Fecha de creación' }
+      ],
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Crear',
           handler: (data) => {
-            if (data.titulo && data.creador) {
-              const codigo = Math.floor(1000 + Math.random() * 9000);
+            if (!data.titulo || !this.propietarioId) return;
 
-              const nuevoTablero: Tablero = {
-                titulo: data.titulo,
-                codigo: codigo,
-                creador: data.creador,
-                fecha: data.fecha
-              };
+            const codigo = Math.floor(1000 + Math.random() * 9000).toString();
+            const isoFecha = data.fecha ? new Date(data.fecha).toISOString() : new Date().toISOString();
 
-              //Guardar en lista interna
-              this.tableros.push(nuevoTablero)  ;
-              this.cantidadTableros = this.tableros.length;
-            
+            this.propietarioId = localStorage.getItem('userId') || '';
+            const payload = {
+              nombre: data.titulo,
+              propietario: this.propietarioId,
+              colaboradores: [],
+              codigoRandom: codigo,
+              fechaCreacion: isoFecha,
+              estado: 'activo'
+            };
 
-              
-
-              // Crear dinámicamente un card
-              const card = this.renderer.createElement('ion-card');
-              const header = this.renderer.createElement('ion-card-header');
-              const title = this.renderer.createElement('ion-card-title');
-              const subtitle = this.renderer.createElement('ion-card-subtitle');
-              const content = this.renderer.createElement('ion-card-content');
-              const button = this.renderer.createElement('ion-button');
-
-              title.textContent = nuevoTablero.titulo;
-              subtitle.textContent = `Código: ${codigo}`;
-              content.innerHTML = `
-              <p>Fecha: ${data.fecha}</p>
-              <p>Creado por: ${data.creador}</p>
-            `;
-            button.textContent = 'Asignar tarea';
-            button.addEventListener('click', () => {
-              this.router.navigate(['/integrantes']);
+            this.tableroService.crearTablero(payload).subscribe({
+              next: (res: any) => {
+                const creado = res?.Respuesta;
+                if (!creado) return;
+                this.cantidadTableros += 1;
+                this.pintarTablero(creado);
+              },
+              error: (err: any) => console.error('Error al guardar tablero:', err)
             });
-
-
-              this.renderer.appendChild(header, title);
-              this.renderer.appendChild(header, subtitle);
-              this.renderer.appendChild(card, header);
-              this.renderer.appendChild(card, content);
-              this.renderer.appendChild(card, button);
-
-              this.renderer.appendChild(this.tablerosContainer.nativeElement, card);
-            }
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  private pintarTablero(tablero: Tablero) {
+    const card = this.renderer.createElement('ion-card');
+    const header = this.renderer.createElement('ion-card-header');
+    const title = this.renderer.createElement('ion-card-title');
+    const subtitle = this.renderer.createElement('ion-card-subtitle');
+    const content = this.renderer.createElement('ion-card-content');
+    const button = this.renderer.createElement('ion-button');
+
+    title.textContent = tablero.nombre || 'Sin título';
+    subtitle.textContent = `Código: ${tablero.codigoRandom || ''}`;
+
+    const fechaText = tablero.fechaCreacion
+      ? new Date(tablero.fechaCreacion).toLocaleDateString()
+      : '—';
+    content.innerHTML = `
+      <p>Fecha: ${fechaText}</p>
+      <p>Propietario: ${tablero.propietario}</p>
+      <p>Estado: ${tablero.estado || 'activo'}</p>
+    `;
+
+    button.textContent = 'Asignar tarea';
+    button.addEventListener('click', () => {
+      this.router.navigate(['/integrantes']);
+    });
+
+    this.renderer.appendChild(header, title);
+    this.renderer.appendChild(header, subtitle);
+    this.renderer.appendChild(card, header);
+    this.renderer.appendChild(card, content);
+    this.renderer.appendChild(card, button);
+    this.renderer.appendChild(this.tablerosContainer.nativeElement, card);
   }
 }

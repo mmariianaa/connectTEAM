@@ -97,6 +97,45 @@ def fnPostLogin(email, password):
         objResponse['Error'] = str(e)
         return jsonify(objResponse)
     
+def fnPostTablero(nombre, propietario, colaboradores=None, codigoRandom="", fechaCreacion=None):
+    try:
+        if ColabsKey.dbTableros is None:
+            ColabsKey.initialize_db()
+
+        from bson import ObjectId
+        from datetime import datetime
+
+        colaboradores = colaboradores or []
+        fecha_creacion_dt = datetime.fromisoformat(fechaCreacion) if fechaCreacion else datetime.utcnow()
+
+        nuevo_tablero = {
+            "nombre": nombre,
+            "propietario": ObjectId(propietario),
+            "colaboradores": [ObjectId(c) for c in colaboradores],
+            "codigoRandom": str(codigoRandom),
+            "fechaCreacion": fecha_creacion_dt,
+            "ultimaModificacion": fecha_creacion_dt,
+            "estado": "activo"
+        }
+
+        result = ColabsKey.dbTableros.insert_one(nuevo_tablero)
+
+        if result.inserted_id:
+            return jsonify({
+                "Respuesta": {
+                    "id": str(result.inserted_id),
+                    "nombre": nuevo_tablero["nombre"],
+                    "propietario": str(nuevo_tablero["propietario"]),
+                    "codigoRandom": nuevo_tablero["codigoRandom"],
+                    "fechaCreacion": nuevo_tablero["fechaCreacion"].isoformat(),
+                    "estado": nuevo_tablero["estado"]
+                }
+            })
+        else:
+            return jsonify({"Error": "No se pudo crear el tablero"})
+    except Exception as e:
+        return jsonify({"Error": str(e)})
+    
 def fnPostRegistro(email, password, role=None, nombre=""):
     """Registro de nuevo usuario"""
     try:

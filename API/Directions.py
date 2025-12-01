@@ -89,6 +89,63 @@ def postRegistro():
     except Exception as e:
         print(f"Error en registro: {e}")
         return jsonify(respuestas.err500)
+    
+# Directions.py
+@app.route('/tablero', methods=["POST"])
+@cross_origin()
+def postTablero():
+    try:
+        if not request.is_json:
+            r = respuestas.err203.copy()
+            r["Error"] = "Se esperaba JSON en la solicitud"
+            return jsonify(r)
+
+        data = request.get_json()
+        nombre = data.get("nombre")
+        propietario = data.get("propietario")
+        colaboradores = data.get("colaboradores", [])
+        codigoRandom = data.get("codigoRandom", "")
+        fechaCreacion = data.get("fechaCreacion")  # ISO string
+
+        if not nombre or not propietario:
+            r = respuestas.err203.copy()
+            r["Error"] = "Los campos 'nombre' y 'propietario' son requeridos"
+            return jsonify(r)
+
+        return CallMethod.fnPostTablero(nombre, propietario, colaboradores, codigoRandom, fechaCreacion)
+
+    except Exception as e:
+        print(f"Error en creación de tablero: {e}")
+        return jsonify(respuestas.err500)
+
+@app.route('/tablero', methods=["GET"])
+@cross_origin()
+def getTableros():
+    try:
+        if ColabsKey.dbTableros is None:
+            ColabsKey.initialize_db()
+
+        docs = list(ColabsKey.dbTableros.find({}))
+        tableros = []
+        for d in docs:
+            tableros.append({
+                "id": str(d.get("_id")),
+                "nombre": d.get("nombre", ""),
+                "propietario": str(d.get("propietario")) if d.get("propietario") else "",
+                "colaboradores": [str(c) for c in d.get("colaboradores", [])],
+                "codigoRandom": d.get("codigoRandom", ""),
+                "fechaCreacion": d.get("fechaCreacion").isoformat() if d.get("fechaCreacion") else "",
+                "estado": d.get("estado", "")
+            })
+
+        r = respuestas.succ200.copy()
+        r["Respuesta"] = tableros
+        return jsonify(r)
+
+    except Exception as e:
+        print(f"Error en getTableros: {e}")
+        return jsonify(respuestas.err500)
+
 
 @app.route('/user/<user_id>', methods=["GET"])
 @cross_origin()
