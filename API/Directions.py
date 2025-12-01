@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+from bson import ObjectId
+from BackEnd.GlobalInfo import Keys as ColabsKey
 import BackEnd.Functions as CallMethod
 import BackEnd.GlobalInfo.ResponseMessages as respuestas
-import BackEnd.GlobalInfo.Keys as ColabsKey
+
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -129,10 +131,20 @@ def getTableros():
         docs = list(ColabsKey.dbTableros.find({}))
         tableros = []
         for d in docs:
+            propietario_id = d.get("propietario")
+            propietario_nombre = ""
+            if propietario_id:
+                try:
+                    usuario = ColabsKey.dbUsers.find_one({"_id": ObjectId(propietario_id)})
+                    if usuario:
+                        propietario_nombre = usuario.get("nombre", "")
+                except Exception:
+                    propietario_nombre = ""
             tableros.append({
                 "id": str(d.get("_id")),
                 "nombre": d.get("nombre", ""),
                 "propietario": str(d.get("propietario")) if d.get("propietario") else "",
+                "propietarioNombre": propietario_nombre,
                 "colaboradores": [str(c) for c in d.get("colaboradores", [])],
                 "codigoRandom": d.get("codigoRandom", ""),
                 "fechaCreacion": d.get("fechaCreacion").isoformat() if d.get("fechaCreacion") else "",
@@ -167,10 +179,20 @@ def getTablerosByPropietario(propietario_id):
         docs = list(ColabsKey.dbTableros.find({"propietario": oid}))
         tableros = []
         for d in docs:
+            propietario_id = d.get("propietario")
+            propietario_nombre = ""
+            if propietario_id:
+                try:
+                    usuario = ColabsKey.dbUsers.find_one({"_id": ObjectId(propietario_id)})
+                    if usuario:
+                        propietario_nombre = usuario.get("nombre", "")
+                except Exception:
+                    propietario_nombre = ""
             tableros.append({
                 "id": str(d.get("_id")),
                 "nombre": d.get("nombre", ""),
                 "propietario": str(d.get("propietario")) if d.get("propietario") else "",
+                "propietarioNombre": propietario_nombre,
                 "colaboradores": [str(c) for c in d.get("colaboradores", [])],
                 "codigoRandom": d.get("codigoRandom", ""),
                 "fechaCreacion": d.get("fechaCreacion").isoformat() if d.get("fechaCreacion") else "",

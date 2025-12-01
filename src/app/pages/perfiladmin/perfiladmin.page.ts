@@ -165,9 +165,12 @@ private limpiarTablerosContainer() {
     const fechaText = tablero.fechaCreacion
       ? new Date(tablero.fechaCreacion).toLocaleDateString()
       : '—';
+    const propietarioText =
+      (tablero as any).propietarioNombre || tablero.propietario || '—';
+
     content.innerHTML = `
       <p>Fecha: ${fechaText}</p>
-      <p>Propietario: ${tablero.propietario}</p>
+      <p>Propietario: ${propietarioText}</p>
       <p>Estado: ${tablero.estado || 'activo'}</p>
     `;
 
