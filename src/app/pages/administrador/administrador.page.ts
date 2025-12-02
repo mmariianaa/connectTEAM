@@ -49,6 +49,7 @@ export class AdministradorPage {
 
   misTablerosasignartareas() {
     this.router.navigate(['/tablerosytareas']);
+    console.log('puto el que lo lea ahhh no se crea es wasa  ');
   }
 
 }
