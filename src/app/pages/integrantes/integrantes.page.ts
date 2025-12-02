@@ -1,3 +1,4 @@
+// ESTE LO CODIFICO EMILY 
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,7 @@ import {
   IonRow, 
   IonGrid 
 } from '@ionic/angular/standalone';
-import { TableroService } from '../../services/tablero.service'; // ⚠️ Ajusta la ruta según tu proyecto
+import { TableroService } from '../../services/tablero.service'; 
 
 @Component({
   selector: 'app-integrantes',
@@ -78,7 +79,7 @@ export class IntegrantesPage implements OnInit {
       <p>Rol: ${integrante.rol || 'colaborador'}</p>
     `;
 
-    // Botón para asignar tarea → redirige con colaboradorId y tableroId
+    // Botón para asignar tarea  redirige con colaboradorId y tableroId
     button.textContent = 'Asignar tarea';  
     button.addEventListener('click', () => {
       this.router.navigate(['/mistablreosasignaciondetareas'], {

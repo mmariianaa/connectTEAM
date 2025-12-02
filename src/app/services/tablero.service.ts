@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+// ESTE LO IMPLENTO EMILY Y YO MARIANA PARA HACER LAS PETICIONES AL BACKEND 
 
 const _URL_TABLERO = 'http://localhost:3000/tablero';
-const _URL_TAREAS = 'http://localhost:3000/tareas'; // ⚠️ Ajusta esta URL a tu backend real
+const _URL_TAREAS = 'http://localhost:3000/tareas';
 
 @Injectable({ providedIn: 'root' })
 export class TableroService {
@@ -49,11 +50,6 @@ export class TableroService {
   obtenerTareasPorTableroYColaborador(tableroId: string, colaboradorId: string): Observable<any> {
   return this.http.get(`${this.baseUrl}/tablero/${tableroId}/colaborador/${colaboradorId}/tareas`);
 }
-
-
-
-
-
   
 }
 

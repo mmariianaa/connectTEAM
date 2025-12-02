@@ -1,3 +1,5 @@
+// ESTE LO CODIFICO EMILY
+//MONY SE AVENTO TODA LA BASE DE DATOS 
 import { Component } from '@angular/core';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonGrid, IonRow, IonCol,

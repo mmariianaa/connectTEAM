@@ -1,3 +1,4 @@
+// ETE LO CODIFIQUE YO MARIANA PARA HACER EL LOGIN Y REGISTER
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

@@ -1,4 +1,4 @@
-// perfilcolaborador.page.ts
+// LO CODIFICAMOS ENTRE EMILY Y YO MARIANA PARA QUE EL COLABORADOR PUEDA VER SU PERFIL Y LAS TAREAS ASIGNADAS
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

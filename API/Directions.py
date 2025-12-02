@@ -1,16 +1,19 @@
+#AQUI COLABORAMOS TODAS MONY,EMIY Y MARIANA 
 from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin # permite que angular se conecte a mas aplicaciones como angular 
 from bson import ObjectId
 from BackEnd.GlobalInfo import Keys as ColabsKey
 import BackEnd.Functions as CallMethod
-import BackEnd.GlobalInfo.ResponseMessages as respuestas
+import BackEnd.GlobalInfo.ResponseMessages as respuestas#mensajes de respuesta
+# Se crea la aplicación principal de Flask
+
 
 
 app = Flask(__name__)
 CORS(app, origins=[
     "http://localhost:8100",
     "http://localhost:4200", 
-    "http://192.168.120.13:8100",
+    "http://192.168.120.13:8100",#direcciones de redes locales que se usan oara que se una a cualquier direccion 
     "http://192.168.100.150:8100",
     "http://localhost:3000"
 ])
@@ -107,7 +110,7 @@ def postRegistro():
         print(f"Error en registro: {e}")
         return jsonify(respuestas.err500)
     
-# Directions.py
+
 @app.route('/tablero', methods=["POST"])
 @cross_origin()
 def postTablero():
@@ -122,7 +125,7 @@ def postTablero():
         propietario = data.get("propietario")
         colaboradores = data.get("colaboradores", [])
         codigoRandom = data.get("codigoRandom", "")
-        fechaCreacion = data.get("fechaCreacion")  # ISO string
+        fechaCreacion = data.get("fechaCreacion") 
 
         if not nombre or not propietario:
             r = respuestas.err203.copy()
