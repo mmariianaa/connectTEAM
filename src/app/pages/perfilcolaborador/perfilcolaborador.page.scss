@@ -1,17 +1,17 @@
-// Variables de diseño consistentes
-$primary-color: #1e40af;
-$secondary-color: #3b82f6;
-$danger-color: #ef4444;
-$accent-color: #f59e0b;
-$light-bg: #f8fafc;
+// Variables de diseño consistentes - PALETA NEON
+$primary-color: #7209b7;    // Morado vibrante
+$secondary-color: #4361ee;  // Azul eléctrico
+$danger-color: #f72585;     // Rosa Magenta (Usado para danger/atención)
+$accent-color: #4cc9f0;     // Cian Neón (Para acentos)
+$light-bg: #f8f9fe;         // Blanco frío azulado
 $card-bg: #ffffff;
-$text-dark: #1e293b;
+$text-dark: #1a1a2e;        // Azul muy oscuro
 $text-light: #64748b;
 $border-color: #e2e8f0;
 
 // Contenido principal
 ion-content {
-  --background: #f8fafc;
+  --background: #f8f9fe;
   
   &::before {
     content: '';
@@ -20,14 +20,15 @@ ion-content {
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    // Degradado Azul Eléctrico a Morado Profundo
+    background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
     z-index: 0;
   }
 }
 
 // Toolbar consistente
 ion-toolbar {
-  --background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  --background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
   
   ion-title {
     font-weight: 600;
@@ -47,7 +48,8 @@ ion-grid {
 ion-card {
   background: $card-bg;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1);
+  // Sombra con tinte morado
+  box-shadow: 0 10px 30px rgba(114, 9, 183, 0.1);
   border: 1px solid $border-color;
   margin: 0;
   position: relative;
@@ -61,12 +63,14 @@ ion-card {
     left: 0;
     right: 0;
     height: 4px;
+    // Línea multicolor: Morado -> Azul -> Cian
     background: linear-gradient(90deg, $primary-color, $secondary-color, $accent-color);
   }
   
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(30, 64, 175, 0.2);
+    // Sombra más intensa al hover
+    box-shadow: 0 15px 40px rgba(114, 9, 183, 0.2);
   }
 }
 
@@ -140,18 +144,19 @@ ion-list {
     }
     
     &:hover {
-      --background: rgba(30, 64, 175, 0.1);
+      --background: rgba(114, 9, 183, 0.1); // Fondo morado suave
       transform: translateX(5px);
     }
   }
 }
 
-// Botón Volver
+// Botón Volver (Usando el color de peligro/magenta)
 ion-button[color="danger"] {
-  --background: linear-gradient(135deg, $danger-color 0%, #f87171 100%);
+  // Degradado Magenta -> Rosa claro
+  --background: linear-gradient(135deg, $danger-color 0%, #ff66b2 100%);
   --color: white;
   --border-radius: 12px;
-  --box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+  --box-shadow: 0 6px 20px rgba(247, 37, 133, 0.3);
   --padding-top: 16px;
   --padding-bottom: 16px;
   font-weight: 600;
@@ -160,8 +165,8 @@ ion-button[color="danger"] {
   transition: all 0.3s ease;
   
   &:hover {
-    --background: linear-gradient(135deg, #f87171 0%, $danger-color 100%);
-    --box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+    --background: linear-gradient(135deg, #ff66b2 0%, $danger-color 100%);
+    --box-shadow: 0 10px 25px rgba(247, 37, 133, 0.4);
     transform: translateY(-2px);
   }
   
@@ -233,7 +238,7 @@ ion-item {
   }
   
   &:hover {
-    --background: rgba(30, 64, 175, 0.1);
+    --background: rgba(114, 9, 183, 0.1);
     transform: translateX(5px);
   }
 }
@@ -331,8 +336,10 @@ ion-card::after {
 ion-card:hover::after {
   left: 100%;
 }
+
 .elegant-toolbar {
-  --background: linear-gradient(135deg, #4f86f7 0%, #6ba8f9 100%);
+  // Degradado Azul Eléctrico a Morado
+  --background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
   
   .elegant-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

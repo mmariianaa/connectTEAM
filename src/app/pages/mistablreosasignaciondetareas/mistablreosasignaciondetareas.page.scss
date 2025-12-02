@@ -1,17 +1,17 @@
-// Variables de diseño consistentes
-$primary-color: #1e40af;
-$secondary-color: #3b82f6;
-$success-color: #10b981;
-$accent-color: #f59e0b;
-$light-bg: #f8fafc;
+// Variables de diseño consistentes - PALETA NEON
+$primary-color: #7209b7;    // Morado vibrante
+$secondary-color: #4361ee;  // Azul eléctrico
+$success-color: #4cc9f0;    // Cian Neón (para éxito/guardar)
+$accent-color: #f72585;     // Rosa Magenta
+$light-bg: #f8f9fe;         // Blanco frío azulado
 $card-bg: #ffffff;
-$text-dark: #1e293b;
+$text-dark: #1a1a2e;        // Azul muy oscuro
 $text-light: #64748b;
 $border-color: #e2e8f0;
 
 // Contenido principal
 ion-content {
-  --background: #f8fafc;
+  --background: #f8f9fe;
   
   &::before {
     content: '';
@@ -20,14 +20,15 @@ ion-content {
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    // Degradado de Azul Eléctrico a Morado Profundo
+    background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
     z-index: 0;
   }
 }
 
 // Toolbar consistente
 ion-toolbar {
-  --background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  --background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
   
   ion-title {
     font-weight: 600;
@@ -48,7 +49,8 @@ ion-col[size="12"][size-md="4"] {
   background: $card-bg;
   border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1);
+  // Sombra con tinte morado
+  box-shadow: 0 10px 30px rgba(114, 9, 183, 0.1);
   border: 1px solid $border-color;
   margin-bottom: 20px;
 }
@@ -62,6 +64,7 @@ ion-list {
 
 // Item para nuevo campo
 ion-item[button] {
+  // Degradado Morado -> Azul
   --background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
   --color: white;
   --border-radius: 12px;
@@ -76,18 +79,20 @@ ion-item[button] {
   }
   
   &:hover {
+    // Invertir degradado al hover
     --background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+    --box-shadow: 0 8px 25px rgba(114, 9, 183, 0.3);
   }
 }
 
 // Botón Guardar
 ion-button[color="success"] {
-  --background: linear-gradient(135deg, $success-color 0%, #34d399 100%);
+  // Degradado Cian Neón -> Azul Claro
+  --background: linear-gradient(135deg, $success-color 0%, #4895ef 100%);
   --color: white;
   --border-radius: 12px;
-  --box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  --box-shadow: 0 6px 20px rgba(76, 201, 240, 0.3);
   --padding-top: 18px;
   --padding-bottom: 18px;
   font-weight: 600;
@@ -96,8 +101,8 @@ ion-button[color="success"] {
   transition: all 0.3s ease;
   
   &:hover {
-    --background: linear-gradient(135deg, #34d399 0%, $success-color 100%);
-    --box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+    --background: linear-gradient(135deg, #4895ef 0%, $success-color 100%);
+    --box-shadow: 0 10px 25px rgba(76, 201, 240, 0.4);
     transform: translateY(-2px);
   }
   
@@ -111,7 +116,8 @@ ion-col[size="12"][size-md="8"] {
   background: $card-bg;
   border-radius: 20px;
   padding: 30px;
-  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1);
+  // Sombra con tinte morado
+  box-shadow: 0 10px 30px rgba(114, 9, 183, 0.1);
   border: 1px solid $border-color;
   min-height: 400px;
 }
@@ -128,7 +134,7 @@ ion-col[size="12"][size-md="8"] {
   background: $light-bg;
   border-radius: 16px;
   padding: 25px;
-  border-left: 4px solid $primary-color;
+  border-left: 4px solid $primary-color; // Borde morado
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   
