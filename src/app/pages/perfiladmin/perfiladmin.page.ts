@@ -1,3 +1,4 @@
+// ESTE LO CODIFIQUE EMILY Y YO MARIANA PARA ASIGNAR TAREAS A LOS COLABORADORES
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -66,7 +67,7 @@ interface Tablero {
 export class PerfiladminPage implements OnInit {
   @ViewChild('tablerosContainer', { static: true }) tablerosContainer!: ElementRef;
   cantidadTableros = 0;
-  propietarioId = ''; // aquí debes asignar el id del admin logueado
+  propietarioId = ''; 
 
   constructor(
     private alertCtrl: AlertController,
@@ -79,19 +80,18 @@ export class PerfiladminPage implements OnInit {
     // Recuperar el id del usuario guardado en login
   this.propietarioId = localStorage.getItem('userId') || '';
     
-  // 2) Si hay id, cargar sus tableros
+  
   if (this.propietarioId) {
     this.tableroService.obtenerTablerosPorPropietario(this.propietarioId).subscribe({
       next: (res: any) => {
         const lista = Array.isArray(res?.Respuesta) ? res.Respuesta : [];
 
-        // 3) Limpiar contenedor para evitar duplicados
         this.limpiarTablerosContainer();
 
-        // 4) Pintar cada tablero con Renderer2
+        
         lista.forEach((t: any) => this.pintarTablero(t));
 
-        // 5) Actualizar contador
+        
         this.cantidadTableros = lista.length;
       },
       error: (err: any) => console.error('Error al cargar tableros del propietario:', err)

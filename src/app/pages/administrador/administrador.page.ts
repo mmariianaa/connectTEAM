@@ -1,3 +1,4 @@
+// ESTE LO IMPLENTE YO (MARIANA) PARA LA PAGINA DEL ADMINISTRADOR
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { _URL_LOGIN, _URL_REGISTER } from '../config/config';
-
+// ESTE APOARTADO LO IMPLENTE YO (MARIANA) PARA HACER EL LOGIN Y REGISTER
 @Injectable({
   providedIn: 'root'
 })

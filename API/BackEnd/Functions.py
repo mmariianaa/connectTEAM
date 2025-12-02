@@ -138,7 +138,8 @@ def fnPostTablero(nombre, propietario, colaboradores=None, codigoRandom="", fech
     
     
 def fnPostRegistro(email, password, role=None, nombre=""):
-    """Registro de nuevo usuario"""
+    """Registro de nuevo usuario"""#este es el espacio para mandar datos al registro 
+
     try:
         if ColabsKey.dbUsers is None:
             ColabsKey.initialize_db()
@@ -195,6 +196,7 @@ def fnPostRegistro(email, password, role=None, nombre=""):
 
 def fnGetUserById(user_id):
     """Obtener usuario por ID"""
+    #esta funcion es para traerse el id del usuario para poder traernos sus valores 
     try:
         if ColabsKey.dbUsers is None:
             ColabsKey.initialize_db()

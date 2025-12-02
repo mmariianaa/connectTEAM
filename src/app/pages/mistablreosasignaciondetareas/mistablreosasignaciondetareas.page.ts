@@ -1,3 +1,4 @@
+// ESTE LO CODIFICAMOS ENTRE EMILY Y YO MARIANA PARA ASIGNAR TAREAS DINAMICAMENTE A LOS COLABORADORES
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -44,7 +45,6 @@ import { IonicModule } from '@ionic/angular';
   ]
 })
 export class MistablreosasignaciondetareasPage implements OnInit {
-  // referencia al contenedor en el HTML
   @ViewChild('contenedorCampos', { static: true }) contenedorCampos!: ElementRef;
   colaboradorId = '';
   tableroId = '';

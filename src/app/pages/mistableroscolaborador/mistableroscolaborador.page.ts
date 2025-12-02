@@ -1,3 +1,4 @@
+//ESTE LO CODIFICO EMILY PARA MOSTRAR LOS TABLEROS DEL COLABORADOR
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -77,7 +78,7 @@ export class MistableroscolaboradorPage implements OnInit {
       return;
     }
     const nuevoTablero = {
-      id: Date.now(), //ID unico uwu 
+      id: Date.now(), //ID unico 
       nombre: this.codigoRandom.toUpperCase()
     };
     this.tableros.push(nuevoTablero);
