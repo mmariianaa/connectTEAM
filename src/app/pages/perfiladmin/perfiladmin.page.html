@@ -12,24 +12,21 @@
         <ion-col size="12" size-md="4">
           <div class="sidebar-section">
             <ion-list class="custom-list">
-              <ion-item 
-                class="create-board-item" 
-                button 
-                color="primary" 
-                (click)="crearTablero()">
+              <ion-item class="create-board-item" button color="primary" (click)="crearTablero()">
                 <ion-icon name="add-circle-outline" slot="start"></ion-icon>
                 <ion-label>Nuevo Tablero</ion-label>
               </ion-item>
             </ion-list>
-            
+
             <!-- Sección de información adicional -->
             <div class="info-card">
               <h3>Acciones Rápidas</h3>
               <ion-list lines="none" class="quick-actions">
-                <ion-item button class="action-item">
+                <ion-item button class="action-item" (click)="irAlLogin()">
                   <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
                   <ion-label>volver al inicio</ion-label>
                 </ion-item>
+
               </ion-list>
             </div>
           </div>

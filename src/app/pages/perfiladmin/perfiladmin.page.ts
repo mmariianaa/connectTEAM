@@ -186,4 +186,8 @@ private limpiarTablerosContainer() {
     this.renderer.appendChild(card, button);
     this.renderer.appendChild(this.tablerosContainer.nativeElement, card);
   }
+  irAlLogin() {
+  this.router.navigate(['/login']);
+}
+
 }

@@ -93,13 +93,6 @@ export class TablerosytareasPage implements OnInit {
       <p>Estado: ${tablero.estado || 'activo'}</p>
     `;
 
-    button.textContent = 'Ir a Tareas Pendientes';
-    button.setAttribute('color', 'primary');
-    button.setAttribute('expand', 'block');
-    button.addEventListener('click', () => {
-      this.irATareasPendientes(tablero._id || tablero.id);
-    });
-
     this.renderer.appendChild(header, title);
     this.renderer.appendChild(card, header);
     this.renderer.appendChild(card, content);
