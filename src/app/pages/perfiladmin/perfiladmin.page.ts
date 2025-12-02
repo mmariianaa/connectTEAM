@@ -176,7 +176,7 @@ private limpiarTablerosContainer() {
 
     button.textContent = 'Asignar tarea';
     button.addEventListener('click', () => {
-      this.router.navigate(['/integrantes']);
+      this.router.navigate(['/integrantes',tablero.id]);
     });
 
     this.renderer.appendChild(header, title);

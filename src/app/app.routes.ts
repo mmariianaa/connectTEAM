@@ -28,9 +28,14 @@ export const routes: Routes = [
   loadComponent: () => import('./pages/perfilcolaborador/perfilcolaborador.page').then( m => m.PerfilcolaboradorPage)
 
  },
+   {
+  path: 'mistablreosasignaciondetareas',
+  loadComponent: () => import('./pages/mistablreosasignaciondetareas/mistablreosasignaciondetareas.page')
+    .then(m => m.MistablreosasignaciondetareasPage)
+},
   {
-    path: 'mistablreosasignaciondetareas',
-    loadComponent: () => import('./pages/mistablreosasignaciondetareas/mistablreosasignaciondetareas.page').then( m => m.MistablreosasignaciondetareasPage)
+    path: 'integrantes/:id',
+    loadComponent: () => import('./pages/integrantes/integrantes.page').then(m => m.IntegrantesPage)
   },
   {
     path: 'integrantes',
@@ -47,10 +52,13 @@ export const routes: Routes = [
   {
     path: 'tareaspendientes',
     loadComponent: () => import('./pages/tareaspendientes/tareaspendientes.page').then( m => m.TareaspendientesPage)
-  },  {
+  },
+  {
     path: 'codigo',
     loadComponent: () => import('./pages/codigo/codigo.page').then( m => m.CodigoPage)
-  }
+  },
+
+  { path: 'integrantes/:id', loadComponent: () => import('./pages/integrantes/integrantes.page').then(m => m.IntegrantesPage) }
 
 
 

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { TableroService } from '../../services/tablero.service';
 import {
   IonContent,
   IonHeader,
@@ -16,6 +18,7 @@ import {
   IonList
 } from '@ionic/angular/standalone';
 import { Router, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-mistablreosasignaciondetareas',
@@ -43,10 +46,17 @@ import { Router, RouterModule } from '@angular/router';
 export class MistablreosasignaciondetareasPage implements OnInit {
   // referencia al contenedor en el HTML
   @ViewChild('contenedorCampos', { static: true }) contenedorCampos!: ElementRef;
+  colaboradorId = '';
+  tableroId = '';
+  constructor(private renderer: Renderer2, private router: Router,private route:ActivatedRoute, private tableroService: TableroService) {}
 
-  constructor(private renderer: Renderer2, private router: Router) {}
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+    this.colaboradorId = params['colaboradorId'] || '';
+    this.tableroId = params['tableroId'] || '';
+    console.log('Asignando tareas a colaborador:', this.colaboradorId, 'en tablero:', this.tableroId);
+  });
+  }
 
   // método para agregar dinámicamente un campo
   agregarCampo() {
@@ -62,7 +72,20 @@ export class MistablreosasignaciondetareasPage implements OnInit {
 
   // método para guardar y regresar a integrantes
   guardar() {
-    console.log('Datos guardados correctamente');
-    this.router.navigate(['/integrantes']); //  redirige a la página de Integrantes
+  const campos: NodeListOf<HTMLInputElement> = this.contenedorCampos.nativeElement.querySelectorAll('ion-input');
+  const tareas: string[] = [];
+
+  campos.forEach((input: any) => {
+    const valor = input.value || '';
+    if (valor.trim()) tareas.push(valor.trim());
+  });
+
+  this.tableroService.asignarTareas(this.tableroId, this.colaboradorId, tareas).subscribe({
+    next: (res) => {
+      console.log('Tareas guardadas:', res);
+      this.router.navigate(['/integrantes', this.tableroId]);
+    },
+    error: (err) => console.error('Error al guardar tareas:', err)
+  });
   }
 }

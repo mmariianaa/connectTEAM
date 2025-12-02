@@ -136,6 +136,7 @@ def fnPostTablero(nombre, propietario, colaboradores=None, codigoRandom="", fech
     except Exception as e:
         return jsonify({"Error": str(e)})
     
+    
 def fnPostRegistro(email, password, role=None, nombre=""):
     """Registro de nuevo usuario"""
     try:

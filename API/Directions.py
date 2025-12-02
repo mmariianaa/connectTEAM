@@ -27,6 +27,20 @@ def home():
             "GET /user/<id>": "Obtener usuario por ID"
         }
     })
+@app.route('/tarea/<tarea_id>/actualizar', methods=["POST"])
+@cross_origin()
+def actualizar_tarea(tarea_id):
+    from bson import ObjectId
+    data = request.get_json()
+
+    ColabsKey.dbconn["tarea"].update_one(
+        {"_id": ObjectId(tarea_id)},
+        {"$set": {"checklist": data.get("checklist", [])}}
+    )
+
+    return jsonify({"Respuesta": "Checklist actualizado"})
+
+
 
 @app.route('/getAllUsers', methods=["GET"])
 @cross_origin()
@@ -149,6 +163,97 @@ def unirseATableroPorCodigo():
             "nombre": tablero.get("nombre", "")
         }
     })
+
+@app.route('/tablero/<tablero_id>/asignar_tareas', methods=["POST"])
+@cross_origin()
+def asignarTareas(tablero_id):
+    from bson import ObjectId
+    from datetime import datetime
+    data = request.get_json()
+
+    colaborador_id = data.get("colaboradorId")
+    tareas = data.get("tareas", [])
+
+    if not colaborador_id or not tareas:
+        return jsonify({"Error": "Faltan datos"})
+
+    if ColabsKey.dbconn is None:
+        ColabsKey.initialize_db()
+
+    tarea_doc = {
+        "tableroId": ObjectId(tablero_id),
+        "colaboradorId": ObjectId(colaborador_id),
+        "tareas": tareas,
+        "fechaAsignacion": datetime.utcnow()
+    }
+
+    result = ColabsKey.dbconn["tareasasignadas"].insert_one(tarea_doc)
+
+    return jsonify({
+        "Respuesta": {
+            "id": str(result.inserted_id),
+            "mensaje": "Tareas asignadas correctamente"
+        }
+    })
+
+@app.route('/tareasasignadas/<tarea_id>/actualizar', methods=["POST"])
+@cross_origin()
+def actualizarTarea(tarea_id):
+    from bson import ObjectId
+    data = request.get_json()
+    cambios = {}
+
+    if "completadas" in data:
+        cambios["completadas"] = data["completadas"]
+    if "archivos" in data:
+        cambios["archivos"] = data["archivos"]
+
+    result = ColabsKey.dbconn["tareasasignadas"].update_one(
+        {"_id": ObjectId(tarea_id)},
+        {"$set": cambios}
+    )
+
+    return jsonify({"Respuesta": "Actualizado correctamente"})
+
+
+@app.route('/tablero/<tablero_id>/colaborador/<colaborador_id>/tareas', methods=["GET"])
+@cross_origin()
+def obtenerTareasPorTableroYColaborador(tablero_id, colaborador_id):
+    from bson import ObjectId
+    if ColabsKey.dbconn is None:
+        ColabsKey.initialize_db()
+
+    tareas = list(ColabsKey.dbconn["tareasasignadas"].find({
+        "tableroId": ObjectId(tablero_id),
+        "colaboradorId": ObjectId(colaborador_id)
+    }))
+
+    for t in tareas:
+        t["_id"] = str(t["_id"])
+        t["tableroId"] = str(t["tableroId"])
+        t["colaboradorId"] = str(t["colaboradorId"])
+    return jsonify({"Respuesta": tareas})
+
+
+@app.route('/tablero/<tablero_id>/integrantes', methods=["GET"])
+@cross_origin()
+def getIntegrantesPorTablero(tablero_id):
+    tablero = ColabsKey.dbTableros.find_one({"_id": ObjectId(tablero_id)})
+    if not tablero:
+        return jsonify({"Error": "Tablero no encontrado"})
+
+    integrantes = []
+    for colab_id in tablero.get("colaboradores", []):
+        usuario = ColabsKey.dbUsers.find_one({"_id": colab_id})
+        if usuario:
+            integrantes.append({
+                "id": str(usuario["_id"]),
+                "nombre": usuario.get("nombre", ""),
+                "email": usuario.get("email", usuario.get("correo", "")),
+                "rol": usuario.get("rol", "")
+            })
+
+    return jsonify({"Respuesta": integrantes})
 
 @app.route('/tablero/colaborador/<colaborador_id>', methods=["GET"])
 @cross_origin()

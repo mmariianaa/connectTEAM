@@ -26,9 +26,29 @@ export class TableroService {
       codigoRandom
     });
   }
+  
 
   obtenerTablerosPorColaborador(colaboradorId: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/tablero/colaborador/${colaboradorId}`);
   }
+  obtenerIntegrantesPorTablero(tableroId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/tablero/${tableroId}/integrantes`);
+  }
+
+  asignarTareas(tableroId: string, colaboradorId: string, tareas: string[]): Observable<any> {
+    return this.http.post(`http://localhost:3000/tablero/${tableroId}/asignar_tareas`, {
+      colaboradorId,
+      tareas
+    });
+  }
+
+  obtenerTareasPorTableroYColaborador(tableroId: string, colaboradorId: string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/tablero/${tableroId}/colaborador/${colaboradorId}/tareas`);
+}
+actualizarTarea(tareaId: string, checklist: any[]): Observable<any> {
+  return this.http.post(`${this.baseUrl}/tarea/${tareaId}/actualizar`, { checklist });
+}
+
+
 
 }

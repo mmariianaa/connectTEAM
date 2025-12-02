@@ -1,20 +1,21 @@
+// perfilcolaborador.page.ts
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TableroService } from '../../services/tablero.service';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
-  IonCard, 
-  IonCardHeader, 
-  IonCardTitle, 
-  IonCardSubtitle, 
-  IonCardContent, 
-  IonButton, IonLabel, IonCheckbox, IonItem, IonCol, IonList, IonInput, IonRow, IonGrid 
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  IonButton, IonLabel, IonCheckbox, IonItem, IonCol, IonList, IonInput, IonRow, IonGrid
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -23,13 +24,14 @@ import {
   styleUrls: ['./perfilcolaborador.page.scss'],
   standalone: true,
   imports: [
-    IonGrid, IonRow, IonInput, IonList, IonCol, IonItem, IonCheckbox, IonLabel, 
-    IonButton, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, 
+    IonGrid, IonRow, IonInput, IonList, IonCol, IonItem, IonCheckbox, IonLabel,
+    IonButton, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard,
     IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule
   ]
 })
 export class PerfilcolaboradorPage implements OnInit {
   @ViewChild('misTablerosContainer', { static: true }) misTablerosContainer!: ElementRef;
+  @ViewChild('misTareasContainer', { static: true }) misTareasContainer!: ElementRef;
 
   colaboradorId = '';
   codigoInput = '';
@@ -39,7 +41,7 @@ export class PerfilcolaboradorPage implements OnInit {
     private alertController: AlertController,
     private tableroService: TableroService,
     private renderer: Renderer2
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.colaboradorId = localStorage.getItem('userId') || '';
@@ -48,17 +50,15 @@ export class PerfilcolaboradorPage implements OnInit {
     }
   }
 
-  // 👉 Método para cargar todos los tableros del colaborador
+  // Método para cargar todos los tableros del colaborador
   cargarMisTableros() {
     this.tableroService.obtenerTablerosPorColaborador(this.colaboradorId).subscribe({
       next: (res: any) => {
         const lista = res.Respuesta || [];
         const cont = this.misTablerosContainer.nativeElement;
 
-        // limpiar contenido previo
         while (cont.firstChild) cont.removeChild(cont.firstChild);
 
-        // pintar cada tablero dinámicamente
         lista.forEach((t: any) => {
           const card = this.renderer.createElement('ion-card');
           const header = this.renderer.createElement('ion-card-header');
@@ -72,9 +72,18 @@ export class PerfilcolaboradorPage implements OnInit {
             <p>Administrador: ${t.propietarioNombre || '—'}</p>
           `;
 
+          const botonVerTareas = this.renderer.createElement('ion-button');
+          botonVerTareas.textContent = 'Ver tareas';
+          botonVerTareas.setAttribute('color', 'success');
+          botonVerTareas.setAttribute('expand', 'block');
+          botonVerTareas.addEventListener('click', () => {
+            this.cargarTareasDeTablero(t.tableroId || t._id || t.id);
+          });
+
           this.renderer.appendChild(header, title);
           this.renderer.appendChild(card, header);
           this.renderer.appendChild(card, content);
+          this.renderer.appendChild(card, botonVerTareas);
           this.renderer.appendChild(cont, card);
         });
       },
@@ -82,7 +91,107 @@ export class PerfilcolaboradorPage implements OnInit {
     });
   }
 
-  // 👉 Método para unirse a un tablero por código
+  // Método para cargar tareas de un tablero específico
+  cargarTareasDeTablero(tableroId: string) {
+    this.tableroService.obtenerTareasPorTableroYColaborador(tableroId, this.colaboradorId).subscribe({
+      next: (res: any) => {
+        const tareas = res.Respuesta || [];
+        const cont = this.misTareasContainer.nativeElement;
+        while (cont.firstChild) cont.removeChild(cont.firstChild);
+
+        tareas.forEach((tarea: any) => {
+          const card = this.renderer.createElement('ion-card');
+          const header = this.renderer.createElement('ion-card-header');
+          const title = this.renderer.createElement('ion-card-title');
+          title.textContent = tarea.titulo || 'Tareas del tablero';
+
+          const content = this.renderer.createElement('ion-card-content');
+          content.innerHTML = `<p>Asignadas el: ${new Date(tarea.fechaAsignacion).toLocaleDateString()}</p>`;
+
+          const lista = this.renderer.createElement('ion-list');
+          const checklist = tarea.checklist || tarea.tareas || []; // soporta ambas estructuras
+
+          checklist.forEach((chk: any, idx: number) => {
+            const item = this.renderer.createElement('ion-item');
+
+            const checkbox = this.renderer.createElement('ion-checkbox');
+            checkbox.setAttribute('slot', 'start');
+            if (chk.completado) checkbox.setAttribute('checked', 'true');
+
+            const label = this.renderer.createElement('ion-label');
+            label.textContent = chk.texto || chk.descripcion || chk;
+
+            const fileInput = this.renderer.createElement('input');
+            fileInput.setAttribute('type', 'file');
+            fileInput.setAttribute('style', 'margin-left: 12px');
+
+            // capturar cambios
+            checkbox.addEventListener('ionChange', (ev: any) => {
+              chk.completado = ev.detail.checked;
+            });
+
+            fileInput.addEventListener('change', async (e: any) => {
+              const file = e.target.files[0];
+              if (file) {
+                const base64 = await this.fileToBase64(file);
+                chk.archivo = { nombre: file.name, data: base64 };
+              }
+            });
+
+            this.renderer.appendChild(item, checkbox);
+            this.renderer.appendChild(item, label);
+            this.renderer.appendChild(item, fileInput);
+            this.renderer.appendChild(lista, item);
+          });
+
+          // botón guardar
+          const guardarBtn = this.renderer.createElement('ion-button');
+          guardarBtn.textContent = 'Guardar';
+          guardarBtn.setAttribute('color', 'primary');
+          guardarBtn.setAttribute('expand', 'block');
+          guardarBtn.addEventListener('click', async () => {
+            this.tableroService.actualizarTarea(tarea._id, checklist).subscribe({
+              next: async () => {
+                const alert = await this.alertController.create({
+                  header: 'Felicidades',
+                  message: 'Se guardó con éxito',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              },
+              error: async () => {
+                const alert = await this.alertController.create({
+                  header: 'Error',
+                  message: 'No se pudo guardar',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+            });
+          });
+
+          this.renderer.appendChild(header, title);
+          this.renderer.appendChild(card, header);
+          this.renderer.appendChild(card, content);
+          this.renderer.appendChild(card, lista);
+          this.renderer.appendChild(card, guardarBtn);
+          this.renderer.appendChild(cont, card);
+        });
+      },
+      error: (err) => console.error('Error al cargar tareas:', err)
+    });
+  }
+
+  // 👉 Método para convertir archivo a base64
+  private fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   unirmePorCodigo() {
     const codigo = this.codigoInput.trim();
     if (!codigo || !this.colaboradorId) return;
@@ -97,7 +206,7 @@ export class PerfilcolaboradorPage implements OnInit {
         await alert.present();
 
         this.codigoInput = '';
-        this.cargarMisTableros(); // recargar lista
+        this.cargarMisTableros();
       },
       error: async () => {
         const alert = await this.alertController.create({
@@ -110,7 +219,6 @@ export class PerfilcolaboradorPage implements OnInit {
     });
   }
 
-  // 👉 Métodos de navegación que ya tenías
   irTableros() {
     this.router.navigate(['/mistableroscolaborador']);
   }
@@ -122,13 +230,5 @@ export class PerfilcolaboradorPage implements OnInit {
   volver() {
     this.router.navigate(['/login']);
   }
-
-  async guardar() {
-    const alert = await this.alertController.create({
-      header: 'Éxito',
-      message: 'Se guardó con éxito',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
 }
+
