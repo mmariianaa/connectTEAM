@@ -1,13 +1,14 @@
-// Variables de colores azules
-$primary-blue: #1e40af;
-$secondary-blue: #3b82f6;
-$light-blue: #dbeafe;
-$accent-color: #f59e0b;
+// Variables de colores (Actualizadas a paleta Neon)
+$primary-blue: #7209b7;   // Morado vibrante (actúa como el color principal fuerte)
+$secondary-blue: #4361ee; // Azul eléctrico
+$light-blue: #f8f9fe;     // Blanco frío con tinte azulado
+$accent-color: #f72585;   // Rosa Magenta Neón (reemplaza al naranja)
 $white: #ffffff;
 
 // Estilos para el header
 ion-toolbar {
-  --background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  // Degradado de Azul Eléctrico a Morado
+  --background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
   --color: white;
   
   ion-title {
@@ -18,7 +19,7 @@ ion-toolbar {
 
 // Estilos para el contenido
 ion-content {
-  --background: #f8fafc;
+  --background: #f8f9fe; // Fondo claro actualizado
   
   &::before {
     content: '';
@@ -27,7 +28,8 @@ ion-content {
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    // Degradado superior coincidente con el toolbar
+    background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
     z-index: 0;
   }
 }
@@ -36,8 +38,9 @@ ion-content {
 ion-card {
   margin: 100px 20px 20px 20px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.2);
-  border: 1px solid #e2e8f0;
+  // Sombra actualizada con tinte morado
+  box-shadow: 0 10px 30px rgba(114, 9, 183, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2); // Borde más sutil
   position: relative;
   z-index: 1;
   
@@ -48,7 +51,8 @@ ion-card {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #1e40af, #3b82f6, #f59e0b);
+    // Línea multicolor: Azul -> Morado -> Rosa
+    background: linear-gradient(90deg, #4361ee, #7209b7, #f72585);
     border-radius: 20px 20px 0 0;
   }
 }
@@ -61,7 +65,7 @@ ion-card-header {
   ion-card-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #1a1a2e; // Azul oscuro casi negro para mejor contraste
     margin-bottom: 8px;
   }
 }
@@ -73,10 +77,11 @@ ion-card-content {
 
 // Botón personalizado
 ion-button {
-  --background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  // Botón principal: Morado a Azul
+  --background: linear-gradient(135deg, #7209b7 0%, #4361ee 100%);
   --color: white;
   --border-radius: 12px;
-  --box-shadow: 0 6px 20px rgba(30, 64, 175, 0.3);
+  --box-shadow: 0 6px 20px rgba(114, 9, 183, 0.3);
   --padding-top: 16px;
   --padding-bottom: 16px;
   font-weight: 600;
@@ -85,8 +90,9 @@ ion-button {
   transition: all 0.3s ease;
   
   &:hover {
-    --background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-    --box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+    // Inversión del degradado al hacer hover
+    --background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+    --box-shadow: 0 8px 25px rgba(114, 9, 183, 0.4);
     transform: translateY(-2px);
   }
   

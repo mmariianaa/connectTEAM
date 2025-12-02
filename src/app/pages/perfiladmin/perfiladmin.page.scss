@@ -1,14 +1,14 @@
-// Variables de diseño
-$primary-color: var(--ion-color-primary);
-$secondary-color: #6c757d;
-$background-color: #f8f9fa;
-$card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+// Variables - PALETA NEON
+$primary-color: #7209b7;     // Morado vibrante (reemplaza a var(--ion-color-primary))
+$secondary-color: #4361ee;   // Azul eléctrico (reemplaza al gris)
+$background-color: #f8f9fe;  // Blanco frío con tinte azulado
+$card-shadow: 0 4px 12px rgba(114, 9, 183, 0.15); // Sombra con tinte morado
 $border-radius: 12px;
 $transition: all 0.3s ease;
 
 // Estilos globales
 .custom-content {
-  --background: #f8f9fa;
+  --background: #f8f9fe;
 }
 
 .container {
@@ -21,7 +21,8 @@ $transition: all 0.3s ease;
 
 // Header mejorado
 .custom-toolbar {
-  --background: linear-gradient(135deg, var(--ion-color-primary) 0%, #3880ff 100%);
+  // Degradado Morado -> Azul Eléctrico
+  --background: linear-gradient(135deg, #7209b7 0%, #4361ee 100%);
   
   ion-title {
     font-weight: 600;
@@ -49,7 +50,8 @@ $transition: all 0.3s ease;
 // Item para crear tablero
 .create-board-item {
   --border-radius: #{$border-radius};
-  --background: linear-gradient(135deg, $primary-color 0%, #3880ff 100%);
+  // Degradado Morado -> Cian Neón
+  --background: linear-gradient(135deg, #7209b7 0%, #4cc9f0 100%);
   --color: white;
   --padding-start: 16px;
   --padding-end: 16px;
@@ -63,19 +65,20 @@ $transition: all 0.3s ease;
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(var(--ion-color-primary-rgb), 0.3);
+    // Sombra morada vibrante
+    box-shadow: 0 6px 16px rgba(114, 9, 183, 0.3);
   }
 }
 
 // Tarjeta de información
 .info-card {
-  background: #f8f9fa;
+  background: #f8f9fe;
   border-radius: $border-radius;
   padding: 16px;
   
   h3 {
     margin: 0 0 12px 0;
-    color: #2c3e50;
+    color: #1a1a2e; // Azul oscuro
     font-weight: 600;
     font-size: 1rem;
   }
@@ -100,11 +103,11 @@ $transition: all 0.3s ease;
     
     ion-label {
       font-weight: 500;
-      color: #495057;
+      color: #1a1a2e;
     }
     
     &:hover {
-      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+      --background: rgba(114, 9, 183, 0.1); // Fondo morado muy tenue
       transform: translateX(4px);
     }
   }
@@ -125,11 +128,11 @@ $transition: all 0.3s ease;
   align-items: center;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #e9ecef;
+  border-bottom: 2px solid #e2e8f0;
   
   h2 {
     margin: 0;
-    color: #2c3e50;
+    color: #1a1a2e;
     font-weight: 600;
     font-size: 1.4rem;
   }
@@ -155,23 +158,23 @@ $transition: all 0.3s ease;
   }
 }
 
-// Estilos para los tableros dinámicos (cuando los agregues)
+// Estilos para los tableros dinámicos
 .dynamic-board {
   background: white;
   border-radius: $border-radius;
   padding: 20px;
-  border-left: 4px solid $primary-color;
+  border-left: 4px solid $primary-color; // Borde morado
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: $transition;
   
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.2); // Sombra azul al hover
   }
   
   .board-title {
     font-weight: 600;
-    color: #2c3e50;
+    color: #1a1a2e;
     margin: 0 0 8px 0;
     font-size: 1.1rem;
   }
@@ -191,12 +194,12 @@ $transition: all 0.3s ease;
   
   ion-icon {
     font-size: 3rem;
-    color: #dee2e6;
+    color: #e0aaff; // Lavanda muy claro
     margin-bottom: 16px;
   }
   
   h3 {
-    color: #6c757d;
+    color: #64748b;
     margin-bottom: 8px;
     font-weight: 500;
   }
