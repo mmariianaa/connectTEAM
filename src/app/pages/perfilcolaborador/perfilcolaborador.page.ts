@@ -90,7 +90,6 @@ export class PerfilcolaboradorPage implements OnInit {
       error: (err) => console.error('Error al cargar tableros:', err)
     });
   }
-
   // Método para cargar tareas de un tablero específico
   cargarTareasDeTablero(tableroId: string) {
     this.tableroService.obtenerTareasPorTableroYColaborador(tableroId, this.colaboradorId).subscribe({
@@ -109,11 +108,10 @@ export class PerfilcolaboradorPage implements OnInit {
           content.innerHTML = `<p>Asignadas el: ${new Date(tarea.fechaAsignacion).toLocaleDateString()}</p>`;
 
           const lista = this.renderer.createElement('ion-list');
-          const checklist = tarea.checklist || tarea.tareas || []; // soporta ambas estructuras
+          const checklist = tarea.checklist || tarea.tareas || [];
 
-          checklist.forEach((chk: any, idx: number) => {
+          checklist.forEach((chk: any) => {
             const item = this.renderer.createElement('ion-item');
-
             const checkbox = this.renderer.createElement('ion-checkbox');
             checkbox.setAttribute('slot', 'start');
             if (chk.completado) checkbox.setAttribute('checked', 'true');
@@ -125,16 +123,28 @@ export class PerfilcolaboradorPage implements OnInit {
             fileInput.setAttribute('type', 'file');
             fileInput.setAttribute('style', 'margin-left: 12px');
 
-            // capturar cambios
+            // guardar inmediatamente al marcar
             checkbox.addEventListener('ionChange', (ev: any) => {
               chk.completado = ev.detail.checked;
+              chk.fechaCompletado = chk.completado ? new Date().toISOString() : null;
+
+              this.tableroService.actualizarTarea(tarea._id, { checklist }).subscribe({
+                next: () => console.log('Estado guardado'),
+                error: (err) => console.error('Error al guardar estado:', err)
+              });
             });
 
+            // subir archivo
             fileInput.addEventListener('change', async (e: any) => {
               const file = e.target.files[0];
               if (file) {
                 const base64 = await this.fileToBase64(file);
                 chk.archivo = { nombre: file.name, data: base64 };
+
+                this.tableroService.actualizarTarea(tarea._id, { checklist }).subscribe({
+                  next: () => console.log('Archivo guardado'),
+                  error: (err) => console.error('Error al guardar archivo:', err)
+                });
               }
             });
 
@@ -144,13 +154,12 @@ export class PerfilcolaboradorPage implements OnInit {
             this.renderer.appendChild(lista, item);
           });
 
-          // botón guardar
           const guardarBtn = this.renderer.createElement('ion-button');
           guardarBtn.textContent = 'Guardar';
           guardarBtn.setAttribute('color', 'primary');
           guardarBtn.setAttribute('expand', 'block');
           guardarBtn.addEventListener('click', async () => {
-            this.tableroService.actualizarTarea(tarea._id, checklist).subscribe({
+            this.tableroService.actualizarTarea(tarea._id, { checklist }).subscribe({
               next: async () => {
                 const alert = await this.alertController.create({
                   header: 'Felicidades',
@@ -182,7 +191,6 @@ export class PerfilcolaboradorPage implements OnInit {
     });
   }
 
-  // 👉 Método para convertir archivo a base64
   private fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -193,42 +201,33 @@ export class PerfilcolaboradorPage implements OnInit {
   }
 
   unirmePorCodigo() {
-    const codigo = this.codigoInput.trim();
-    if (!codigo || !this.colaboradorId) return;
+  const codigo = this.codigoInput.trim();
+  if (!codigo || !this.colaboradorId) return;
 
-    this.tableroService.unirsePorCodigo(this.colaboradorId, codigo).subscribe({
-      next: async (res: any) => {
-        const alert = await this.alertController.create({
-          header: 'Unido',
-          message: `Te has unido al tablero: ${res.Respuesta?.nombre || ''}`,
-          buttons: ['OK']
-        });
-        await alert.present();
+  this.tableroService.unirsePorCodigo(this.colaboradorId, codigo).subscribe({
+    next: async (res: any) => {
+      const alert = await this.alertController.create({
+        header: 'Unido',
+        message: `Te has unido al tablero: ${res.Respuesta?.nombre || ''}`,
+        buttons: ['OK']
+      });
+      await alert.present();
 
-        this.codigoInput = '';
-        this.cargarMisTableros();
-      },
-      error: async () => {
-        const alert = await this.alertController.create({
-          header: 'Error',
-          message: 'No se pudo unir al tablero',
-          buttons: ['OK']
-        });
-        await alert.present();
-      }
-    });
-  }
-
-  irTableros() {
-    this.router.navigate(['/mistableroscolaborador']);
-  }
-
-  irTareas() {
-    this.router.navigate(['/tareaspendientes']);
-  }
-
-  volver() {
-    this.router.navigate(['/login']);
-  }
+      this.codigoInput = '';
+      this.cargarMisTableros();
+    },
+    error: async () => {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No se pudo unir al tablero',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  });
+}
+volver() {
+  this.router.navigate(['/login']);
 }
 
+}

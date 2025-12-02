@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const _URL_TABLERO = 'http://localhost:3000/tablero';
+const _URL_TAREAS = 'http://localhost:3000/tareas'; // ⚠️ Ajusta esta URL a tu backend real
 
 @Injectable({ providedIn: 'root' })
 export class TableroService {
@@ -11,6 +12,9 @@ export class TableroService {
 
   crearTablero(tablero: any): Observable<any> {
     return this.http.post(_URL_TABLERO, tablero);
+  }
+  actualizarTarea(tareaId: string, payload: any): Observable<any> {
+    return this.http.put(`${_URL_TAREAS}/${tareaId}`, payload);
   }
 
   obtenerTableros(): Observable<any> {
@@ -45,10 +49,15 @@ export class TableroService {
   obtenerTareasPorTableroYColaborador(tableroId: string, colaboradorId: string): Observable<any> {
   return this.http.get(`${this.baseUrl}/tablero/${tableroId}/colaborador/${colaboradorId}/tareas`);
 }
-actualizarTarea(tareaId: string, checklist: any[]): Observable<any> {
-  return this.http.post(`${this.baseUrl}/tarea/${tareaId}/actualizar`, { checklist });
+
+
+
+
+
+  
 }
 
 
 
-}
+
+

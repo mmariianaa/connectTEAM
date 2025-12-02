@@ -402,6 +402,7 @@ def method_not_allowed(error):
         "Error": "El método HTTP no está permitido para esta ruta"
     }), 405
 
+
 if __name__ == '__main__':
     print("Iniciando servidor ConnectTeam API...")
     print("URL: http://0.0.0.0:3000")
