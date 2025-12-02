@@ -11,48 +11,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Tablero 1 -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ tablero1.nombre }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Descripción: {{ tablero1.descripcion }}</p>
-      <p>Fecha de creación: {{ tablero1.fecha | date }}</p>
-
-      <ion-button expand="block" color="primary" (click)="irATareasPendientes()">
-        Ir a Tareas Pendientes
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Tablero 2 -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ tablero2.nombre }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Descripción: {{ tablero2.descripcion }}</p>
-      <p>Fecha de creación: {{ tablero2.fecha | date }}</p>
-
-      <ion-button expand="block" color="primary" (click)="irATareasPendientes()">
-        Ir a Tareas Pendientes
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Tablero 3 -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ tablero3.nombre }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Descripción: {{ tablero3.descripcion }}</p>
-      <p>Fecha de creación: {{ tablero3.fecha | date }}</p>
-
-      <ion-button expand="block" color="primary" (click)="irATareasPendientes()">
-        Ir a Tareas Pendientes
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+  <div class="boards-section">
+    <div class="section-header">
+      <h2>Mis Tableros</h2>
+      <span class="counter">{{cantidadTableros}} Tableros</span>
+    </div>
+    <div #tablerosContainer class="boards-container">
+      <!-- Aquí se pintan dinámicamente los tableros con Renderer2 -->
+    </div>
+  </div>
 </ion-content>
